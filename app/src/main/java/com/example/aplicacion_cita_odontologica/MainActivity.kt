@@ -12,8 +12,12 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.aplicacion_cita_odontologica.databinding.ActivityMainBinding
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity() {
+    // pruba que si esta conectado a firebase
+
+    private lateinit var db: FirebaseFirestore
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
