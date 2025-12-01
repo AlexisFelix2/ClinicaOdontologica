@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4F6F9">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- HEADER -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:src="@drawable/ic_arrow_back"
+                android:onClick="volverALobby"/>
+
+            <TextView
+                android:layout_marginStart="12dp"
+                android:text="Selecciona un Servicio"
+                android:textSize="20sp"
+                android:textColor="#0096FF"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <!-- BARRA DE PROGRESO -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="6dp"
+                android:layout_margin="6dp"
+                android:background="#0099FF"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="6dp"
+                android:layout_margin="6dp"
+                android:background="#D9DDE1"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="6dp"
+                android:layout_margin="6dp"
+                android:background="#D9DDE1"/>
+        </LinearLayout>
+
+        <!-- BUSCADOR -->
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:paddingHorizontal="15dp"
+            android:gravity="center_vertical"
+            android:background="#FFFFFF"
+            android:elevation="2dp"
+            android:layout_marginBottom="15dp"
+            android:clipToOutline="true">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_search"/>
+
+            <EditText
+                android:hint="Buscar limpieza..."
+                android:textSize="15sp"
+                android:layout_marginStart="10dp"
+                android:background="@android:color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <!-- TARJETAS -->
+        <!-- 1. Limpieza -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="3dp">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:padding="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:onClick="seleccionarLimpieza">
+
+                <ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:background="#E5EEF7"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_cleaning"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_marginStart="15dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:text="Limpieza Dental"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="#0096FF"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="Limpieza profesional y pulido"
+                        android:textSize="13sp"
+                        android:textColor="#666"
+                        android:layout_marginTop="4dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_arrow_right"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 2. Revisión -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="3dp">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:padding="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:onClick="seleccionarRevision">
+
+                <ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:background="#E5EEF7"
+                    android:src="@drawable/ic_revision"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_marginStart="15dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:text="Revisión General"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="#0096FF"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="Chequeo completo dental"
+                        android:textSize="13sp"
+                        android:textColor="#666"
+                        android:layout_marginTop="4dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_arrow_right"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 3. Ortodoncia -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="3dp">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:padding="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:onClick="seleccionarOrtodoncia">
+
+                <ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:background="#E5EEF7"
+                    android:src="@drawable/diente"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_marginStart="15dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:text="Ortodoncia"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="#0096FF"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="Alineación y corrección dental"
+                        android:textSize="13sp"
+                        android:textColor="#666"
+                        android:layout_marginTop="4dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_arrow_right"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 4. Blanqueamiento -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="3dp">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:padding="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:onClick="seleccionarBlanqueamiento">
+
+                <ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:background="#E5EEF7"
+                    android:src="@drawable/ic_whitening"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_marginStart="15dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:text="Blanqueamiento"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="#0096FF"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="Aclaramiento dental profesional"
+                        android:textSize="13sp"
+                        android:textColor="#666"
+                        android:layout_marginTop="4dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_arrow_right"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 5. Implantes -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginBottom="20dp"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="3dp">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:padding="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:onClick="seleccionarImplantes">
+
+                <ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:background="#E5EEF7"
+                    android:src="@drawable/ic_implants"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_marginStart="15dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:text="Implantes Dentales"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="#0096FF"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="Reemplazo de piezas dentales"
+                        android:textSize="13sp"
+                        android:textColor="#666"
+                        android:layout_marginTop="4dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_arrow_right"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- BOTÓN FINAL -->
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="40dp"
+            android:backgroundTint="#8A8686"
+            android:onClick="noSeQueNecesito"
+            android:text="No sé qué necesito"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

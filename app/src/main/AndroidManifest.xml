@@ -12,9 +12,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Aplicacion_cita_odontologica">
         <activity
-            android:name=".MainActivity"
+            android:name=".doctor"
+            android:exported="false" />
+        <activity
+            android:name=".horario_doctor"
+            android:exported="false" />
+        <activity
+            android:name=".perfil_doctor"
+            android:exported="false" />
+        <activity
+            android:name=".pacientes_doctor"
+            android:exported="false" />
+        <activity
+            android:name=".gestionar_citas_doctor"
+            android:exported="false" />
+        <activity
+            android:name=".lobby_doctor"
+            android:exported="false" /> <!-- Splash como actividad principal -->
+        <activity
+            android:name=".splash"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.Aplicacion_cita_odontologica.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,6 +39,35 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".confirmacion"
+            android:exported="false" />
+        <activity
+            android:name=".seleccionar_fecha"
+            android:exported="false" />
+        <activity
+            android:name=".perfil_paciente"
+            android:exported="false" />
+        <activity
+            android:name=".miscitas"
+            android:exported="false" />
+        <activity
+            android:name=".servicios"
+            android:exported="false" />
+        <activity
+            android:name=".lobby"
+            android:exported="false" />
+        <activity
+            android:name=".register"
+            android:exported="false" />
+        <activity
+            android:name=".login"
+            android:exported="false" /> <!-- MainActivity sin intent-filter LAUNCHER -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.Aplicacion_cita_odontologica.NoActionBar" />
     </application>
 
 </manifest>

@@ -1,0 +1,24 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Persona 1 -->
+    <path
+        android:fillColor="@android:color/black"
+        android:pathData="M9,8a3,3 0 1,0 -3,-3 3,3 0 0,0 3,3z"/>
+
+    <path
+        android:fillColor="@android:color/black"
+        android:pathData="M2,20c0,-3 6,-3 6,-3s6,0 6,3v2H2v-2z"/>
+
+    <!-- Persona 2 (ligeramente detrás) -->
+    <path
+        android:fillColor="@android:color/black"
+        android:pathData="M17,9a2.5,2.5 0 1,0 -2.5,-2.5A2.5,2.5 0 0,0 17,9z"/>
+
+    <path
+        android:fillColor="@android:color/black"
+        android:pathData="M12,20c0,-2.5 5,-2.5 5,-2.5s5,0 5,2.5v2H12v-2z"/>
+</vector>

@@ -1,0 +1,37 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Calendario bordeado -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="@android:color/black"
+        android:strokeWidth="2"
+        android:pathData="M3,5h18v16H3z" />
+
+    <!-- Línea superior del calendario -->
+    <path
+        android:strokeColor="@android:color/black"
+        android:strokeWidth="2"
+        android:pathData="M3,9h18" />
+
+    <!-- Aros superiores -->
+    <path
+        android:strokeColor="@android:color/black"
+        android:strokeWidth="2"
+        android:pathData="M7,3v4" />
+
+    <path
+        android:strokeColor="@android:color/black"
+        android:strokeWidth="2"
+        android:pathData="M17,3v4" />
+
+    <!-- Check dentro del calendario -->
+    <path
+        android:strokeColor="@android:color/black"
+        android:strokeWidth="2"
+        android:fillColor="@android:color/transparent"
+        android:pathData="M8,14l3,3 5,-5" />
+</vector>
