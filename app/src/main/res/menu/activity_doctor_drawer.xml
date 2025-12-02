@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_lobby_doctor"
+            android:icon="@drawable/ic_home"
+            android:title="Inicio" />
+        <item
+            android:id="@+id/nav_gestionar_citas"
+            android:icon="@drawable/ic_calendar_add"
+            android:title="Gestionar Citas" />
+        <item
+            android:id="@+id/nav_pacientes"
+            android:icon="@drawable/ic_patients"
+            android:title="Mis Pacientes" />
+        <item
+            android:id="@+id/nav_perfil_doctor"
+            android:icon="@drawable/ic_profile"
+            android:title="Mi Perfil" />
+        <item
+            android:id="@+id/nav_horario"
+            android:icon="@drawable/ic_schedule"
+            android:title="Mi Horario" />
+    </group>
+
+    <item android:title="Opciones">
+        <menu>
+            <item
+                android:id="@+id/nav_logout_doctor"
+                android:icon="@drawable/ic_logout"
+                android:title="Cerrar Sesión" />
+        </menu>
+    </item>
+</menu>

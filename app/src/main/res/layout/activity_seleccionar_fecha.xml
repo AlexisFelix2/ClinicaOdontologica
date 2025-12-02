@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4F6F9"
+    android:padding="20dp"
+    tools:context=".seleccionar_fecha">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Header -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Selecciona Fecha y Hora"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#0096FF"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Servicio Seleccionado -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Servicio Seleccionado"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#1A1A1A" />
+
+                <TextView
+                    android:id="@+id/txtServicio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Limpieza Dental Profesional"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#0099FF"
+                    android:layout_marginTop="4dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Duración: 45 min"
+                    android:textColor="#666"
+                    android:layout_marginTop="4dp" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Selector de Mes -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/btnMesAnterior"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="‹"
+                android:textSize="20sp"
+                android:backgroundTint="@android:color/transparent"
+                android:textColor="#0099FF" />
+
+            <TextView
+                android:id="@+id/txtMesAnio"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Octubre 2024"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="#1A1A1A" />
+
+            <Button
+                android:id="@+id/btnMesSiguiente"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="›"
+                android:textSize="20sp"
+                android:backgroundTint="@android:color/transparent"
+                android:textColor="#0099FF" />
+
+        </LinearLayout>
+
+        <!-- Días de la semana -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="L"
+                android:gravity="center"
+                android:textColor="#666"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="M"
+                android:gravity="center"
+                android:textColor="#666"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="X"
+                android:gravity="center"
+                android:textColor="#666"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="J"
+                android:gravity="center"
+                android:textColor="#666"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="V"
+                android:gravity="center"
+                android:textColor="#666"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="S"
+                android:gravity="center"
+                android:textColor="#999"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="D"
+                android:gravity="center"
+                android:textColor="#999"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Grid del calendario -->
+        <GridView
+            android:id="@+id/gridCalendario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="7"
+            android:verticalSpacing="8dp"
+            android:horizontalSpacing="4dp"
+            android:layout_marginBottom="24dp"
+            android:background="@android:color/transparent" />
+
+        <!-- Horarios Disponibles -->
+        <TextView
+            android:id="@+id/txtHorariosTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Selecciona una fecha para ver horarios"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#1A1A1A"
+            android:layout_marginBottom="16dp" />
+
+        <GridLayout
+            android:id="@+id/gridHorarios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:rowCount="4"
+            android:alignmentMode="alignBounds"
+            android:visibility="gone">
+
+            <!-- Los botones de horarios se generarán dinámicamente -->
+
+        </GridLayout>
+
+        <!-- Botón Confirmar -->
+        <Button
+            android:id="@+id/btnConfirmarHorario"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="24dp"
+            android:text="Confirmar Horario"
+            android:backgroundTint="#E0E0E0"
+            android:textColor="#999"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:enabled="false" />
+
+    </LinearLayout>
+</ScrollView>
