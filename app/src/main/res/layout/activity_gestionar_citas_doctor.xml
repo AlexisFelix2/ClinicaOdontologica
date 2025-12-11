@@ -52,21 +52,21 @@
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:backgroundTint="#FF6B35"
-            android:text="Pendientes (3)"
+            android:text="Pendientes"
             android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/btnConfirmadas"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="0dp"
+            android:layout_width="15dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:backgroundTint="@color/white"
-            android:text="Confirmadas (5)"
+            android:text="Confirmadas"
             android:textColor="#666"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/btnCanceladas"
@@ -75,9 +75,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:backgroundTint="@color/white"
-            android:text="Canceladas (1)"
+            android:text="Canceladas "
             android:textColor="#666"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
     </LinearLayout>
 
     <!-- Contenedor de citas -->
