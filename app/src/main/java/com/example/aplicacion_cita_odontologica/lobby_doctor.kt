@@ -80,15 +80,18 @@ class lobby_doctor : AppCompatActivity() {
         val nombre = prefs.getString("nombre", "Doctor")
         val apellidos = prefs.getString("apellidos", "")
         val correo = prefs.getString("correo", "doctor@clinica.com")
+        val especialidad = prefs.getString("especialidad", "Odontólogo General")
 
         // Obtener referencia al header view
         val headerView = navView.getHeaderView(0)
 
         // Configurar los TextViews del header
         val txtNombreHeader = headerView.findViewById<TextView>(R.id.txtNombreDoctorHeader)
+        val txtEspecialidadDoctor = headerView.findViewById<TextView>(R.id.txtEspecialidadDoctor)
         val txtCorreoDoctor = headerView.findViewById<TextView>(R.id.txtCorreoDoctor)
 
         txtNombreHeader.text = "Dra. $nombre $apellidos"
+        txtEspecialidadDoctor.text = especialidad  // ¡ESTA ES LA LÍNEA NUEVA!
         txtCorreoDoctor.text = correo
     }
 
