@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F4F6F9">
@@ -147,54 +148,6 @@
             app:layout_constraintStart_toEndOf="@id/registro" />
 
         <!-- ✅ NUEVO: Botón de Acceso Rápido para Doctor (SOLO PRUEBAS) -->
-        <View
-            android:id="@+id/separator"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="40dp"
-            android:background="#E0E0E0"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/registrateLink" />
-
-        <TextView
-            android:id="@+id/txtModoPrueba"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="🔧 Modo Prueba Rápida"
-            android:textColor="#666666"
-            android:textSize="14sp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/separator" />
-
-        <Button
-            android:id="@+id/btnAccesoDoctor"
-            android:layout_width="0dp"
-            android:layout_height="52dp"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="#FF9800"
-            android:fontFamily="sans-serif-medium"
-            android:onClick="accesoRapidoDoctor"
-            android:text="👨‍⚕️ Acceso Doctor (Pruebas)"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtModoPrueba" />
-
-        <TextView
-            android:id="@+id/txtInfoPrueba"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Este botón es solo para pruebas de desarrollo"
-            android:textColor="#999999"
-            android:textSize="12sp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnAccesoDoctor" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

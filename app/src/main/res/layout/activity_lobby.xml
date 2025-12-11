@@ -39,8 +39,9 @@
                     android:contentDescription="Abrir menú" />
 
                 <TextView
+                    android:id="@+id/txtSaludo"
                     android:layout_marginStart="10dp"
-                    android:text="Hola, María"
+                    android:text="Hola, Usuario"
                     android:textSize="26sp"
                     android:textStyle="bold"
                     android:textColor="#1A1A1A"
@@ -302,7 +303,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_main"
+        app:headerLayout="@layout/nav_header_paciente"
         app:menu="@menu/activity_main_drawer" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

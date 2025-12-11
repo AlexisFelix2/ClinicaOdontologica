@@ -1,48 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_header_doctor"
+    android:id="@+id/nav_header_paciente"
     android:layout_width="match_parent"
     android:layout_height="180dp"
     android:orientation="vertical"
     android:gravity="bottom"
     android:padding="16dp"
-    android:background="#0099FF">
+    android:background="#0099FF"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        android:id="@+id/imgDoctorProfile"
+        android:id="@+id/imgPacienteProfile"
         android:layout_width="64dp"
         android:layout_height="62dp"
         android:background="@drawable/circle_white"
+        android:contentDescription="@string/nav_header_desc"
         android:padding="4dp"
-        android:src="@drawable/ic_doctor_profile" />
+        android:paddingTop="8dp"
+        android:src="@drawable/ic_profile" />
 
     <TextView
-        android:id="@+id/txtNombreDoctorHeader"
-        android:layout_width="wrap_content"
+        android:id="@+id/txtNombrePacienteHeader"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dra. Ana García"
+        android:paddingTop="12dp"
+        android:text="Nombre del Paciente"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@android:color/white"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/white"
-        android:layout_marginTop="12dp" />
+        android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/txtEspecialidadDoctor"
+        android:id="@+id/txtCorreoPaciente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Odontólogo General"
-        android:textSize="14sp"
+        android:text="correo@ejemplo.com"
         android:textColor="@android:color/white"
-        android:alpha="0.8" />
+        android:alpha="0.8"
+        android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/txtCorreoDoctor"
+        android:id="@+id/txtDNIPaciente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="doctor@clinica.com"
-        android:textSize="12sp"
+        android:text="DNI: 00000000"
         android:textColor="@android:color/white"
         android:alpha="0.7"
+        android:textSize="12sp"
         android:layout_marginTop="4dp" />
 </LinearLayout>
