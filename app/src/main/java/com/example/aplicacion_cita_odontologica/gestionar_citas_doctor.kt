@@ -2,14 +2,22 @@ package com.example.aplicacion_cita_odontologica
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.IgnoreExtraProperties
+import com.google.firebase.firestore.PropertyName
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class gestionar_citas_doctor : AppCompatActivity() {
 
@@ -17,23 +25,7 @@ class gestionar_citas_doctor : AppCompatActivity() {
     private lateinit var btnConfirmadas: Button
     private lateinit var btnCanceladas: Button
     private lateinit var containerCitas: LinearLayout
-
-    // Datos mock
-    private val citasPendientes = listOf(
-        CitaDoctor("Carlos Santana", "Revisión General", "Hoy, 29 Nov - 10:30 AM", "pendiente"),
-        CitaDoctor("María Lopez", "Limpieza Dental", "Jueves, 30 Nov - 04:00 PM", "pendiente"),
-        CitaDoctor("Juan Rodríguez", "Consulta por Dolor", "Viernes, 1 Dic - 09:00 AM", "pendiente")
-    )
-
-    private val citasConfirmadas = listOf(
-        CitaDoctor("Ana Martínez", "Ortodoncia Invisible", "25 Oct - 11:00 AM", "confirmada"),
-        CitaDoctor("Carlos Rodríguez", "Blanqueamiento", "26 Oct - 03:30 PM", "confirmada"),
-        CitaDoctor("Laura Gómez", "Revisión", "28 Oct - 10:00 AM", "confirmada")
-    )
-
-    private val citasCanceladas = listOf(
-        CitaDoctor("Miguel Hernández", "Implante Dental", "20 Nov - 09:00 AM", "cancelada")
-    )
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,19 +37,29 @@ class gestionar_citas_doctor : AppCompatActivity() {
             insets
         }
 
+        conectarFirebase()
         initViews()
         setupListeners()
         mostrarCitasPendientes()
     }
 
-    private fun initViews() {
-        btnPendientes = findViewById(R.id.btnPendientes)
-        btnConfirmadas = findViewById(R.id.btnConfirmadas)
-        btnCanceladas = findViewById(R.id.btnCanceladas)
-        containerCitas = findViewById(R.id.containerCitas)
+    private fun conectarFirebase() {
+        db = FirebaseFirestore.getInstance()
+    }
 
-        findViewById<View>(R.id.btnBack).setOnClickListener {
-            onBackPressed()
+    private fun initViews() {
+        try {
+            btnPendientes = findViewById(R.id.btnPendientes)
+            btnConfirmadas = findViewById(R.id.btnConfirmadas)
+            btnCanceladas = findViewById(R.id.btnCanceladas)
+            containerCitas = findViewById(R.id.containerCitas)
+
+            findViewById<View>(R.id.btnBack).setOnClickListener {
+                onBackPressed()
+            }
+        } catch (e: Exception) {
+            Log.e("InitViewsError", "Error inicializando las vistas: ${e.message}", e)
+            Toast.makeText(this, "Error al cargar la interfaz. Verifique que los IDs en el XML (ej. btnPendientes, containerCitas) son correctos.", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -69,18 +71,43 @@ class gestionar_citas_doctor : AppCompatActivity() {
 
     private fun mostrarCitasPendientes() {
         actualizarBotones(btnPendientes, btnConfirmadas, btnCanceladas)
-        cargarCitasEnUI(citasPendientes)
+        cargarCitasPorEstado("pendiente")
     }
 
     private fun mostrarCitasConfirmadas() {
         actualizarBotones(btnConfirmadas, btnPendientes, btnCanceladas)
-        cargarCitasEnUI(citasConfirmadas)
+        cargarCitasPorEstado("confirmada")
     }
 
     private fun mostrarCitasCanceladas() {
         actualizarBotones(btnCanceladas, btnPendientes, btnConfirmadas)
-        cargarCitasEnUI(citasCanceladas)
+        cargarCitasPorEstado("cancelada")
     }
+
+    private fun cargarCitasPorEstado(estado: String) {
+        db.collection("agendar_cita")
+            .whereEqualTo("estado", estado)
+            .addSnapshotListener { snapshots, e ->
+                if (e != null) {
+                    Log.w("CitasError", "Error al cargar las citas", e)
+                    Toast.makeText(this, "Error al cargar las citas", Toast.LENGTH_SHORT).show()
+                    return@addSnapshotListener
+                }
+
+                val citas = snapshots?.mapNotNull { document ->
+                    try {
+                        val cita = document.toObject(CitaDoctor::class.java)
+                        cita.copy(id = document.id)
+                    } catch (ex: Exception) {
+                        Log.e("CitaParseError", "Error al convertir el documento ${document.id}", ex)
+                        null
+                    }
+                } ?: emptyList()
+
+                cargarCitasEnUI(citas)
+            }
+    }
+
 
     private fun actualizarBotones(botonActivo: Button, boton1: Button, boton2: Button) {
         botonActivo.apply {
@@ -140,9 +167,8 @@ class gestionar_citas_doctor : AppCompatActivity() {
                 setPadding(20, 20, 20, 20)
             }
 
-            // Nombre del paciente
             val tvNombre = TextView(this).apply {
-                text = cita.nombrePaciente
+                text = "DNI: ${cita.dni_cliente}"
                 textSize = 18f
                 setTextColor(Color.parseColor("#1A1A1A"))
                 typeface = android.graphics.Typeface.DEFAULT_BOLD
@@ -154,9 +180,8 @@ class gestionar_citas_doctor : AppCompatActivity() {
                 }
             }
 
-            // Servicio
             val tvServicio = TextView(this).apply {
-                text = cita.servicio
+                text = cita.tipo_servicio
                 textSize = 16f
                 setTextColor(Color.parseColor("#666666"))
                 layoutParams = LinearLayout.LayoutParams(
@@ -167,9 +192,13 @@ class gestionar_citas_doctor : AppCompatActivity() {
                 }
             }
 
-            // Fecha y hora
             val tvFecha = TextView(this).apply {
-                text = cita.fechaHora
+                text = if (cita.fecha_hora != null) {
+                    val sdf = SimpleDateFormat("dd 'de' MMMM 'de' yyyy 'a las' hh:mm a", Locale("es", "ES"))
+                    sdf.format(cita.fecha_hora!!.toDate())
+                } else {
+                    "Fecha no disponible"
+                }
                 textSize = 14f
                 setTextColor(Color.parseColor("#666666"))
                 layoutParams = LinearLayout.LayoutParams(
@@ -180,7 +209,6 @@ class gestionar_citas_doctor : AppCompatActivity() {
                 }
             }
 
-            // Estado
             val tvEstado = TextView(this).apply {
                 text = cita.estado.uppercase()
                 textSize = 12f
@@ -197,7 +225,6 @@ class gestionar_citas_doctor : AppCompatActivity() {
                 }
             }
 
-            // Botones de acción
             val layoutBotones = LinearLayout(this).apply {
                 orientation = LinearLayout.HORIZONTAL
                 layoutParams = LinearLayout.LayoutParams(
@@ -225,7 +252,11 @@ class gestionar_citas_doctor : AppCompatActivity() {
                     val btnReprogramar = Button(this).apply {
                         text = "Reprogramar"
                         setTextColor(Color.parseColor("#666666"))
-                        background = getDrawable(R.drawable.rounded_border_gray)
+                        try {
+                            background = getDrawable(R.drawable.rounded_border_gray)
+                        } catch (e: Exception) {
+                            Log.e("DrawableError", "No se encontró R.drawable.rounded_border_gray. Usando fondo por defecto.")
+                        }
                         layoutParams = LinearLayout.LayoutParams(
                             0,
                             LinearLayout.LayoutParams.WRAP_CONTENT
@@ -238,8 +269,12 @@ class gestionar_citas_doctor : AppCompatActivity() {
                     val btnCancelar = Button(this).apply {
                         text = "Cancelar"
                         setTextColor(Color.parseColor("#F44336"))
-                        background = getDrawable(R.drawable.rounded_border_red)
-                                layoutParams = LinearLayout.LayoutParams(
+                        try {
+                            background = getDrawable(R.drawable.rounded_border_red)
+                        } catch (e: Exception) {
+                            Log.e("DrawableError", "No se encontró R.drawable.rounded_border_red. Usando fondo por defecto.")
+                        }
+                        layoutParams = LinearLayout.LayoutParams(
                             0,
                             LinearLayout.LayoutParams.WRAP_CONTENT
                         ).apply {
@@ -252,18 +287,8 @@ class gestionar_citas_doctor : AppCompatActivity() {
                     layoutBotones.addView(btnReprogramar)
                     layoutBotones.addView(btnCancelar)
                 }
-                "confirmada" -> {
-                    val btnVerDetalles = Button(this).apply {
-                        text = "Ver Detalles"
-                        setTextColor(Color.WHITE)
-                        setBackgroundColor(Color.parseColor("#2196F3"))
-                        layoutParams = LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.MATCH_PARENT,
-                            LinearLayout.LayoutParams.WRAP_CONTENT
-                        )
-                    }
-                    layoutBotones.addView(btnVerDetalles)
-                }
+                "confirmada" -> { /* No buttons */ }
+                "cancelada" -> { /* No buttons */ }
             }
 
             layout.addView(tvNombre)
@@ -278,22 +303,37 @@ class gestionar_citas_doctor : AppCompatActivity() {
     }
 
     private fun confirmarCita(cita: CitaDoctor) {
-        // Simulación de confirmación
-        android.widget.Toast.makeText(this, "Cita de ${cita.nombrePaciente} confirmada",
-            android.widget.Toast.LENGTH_SHORT).show()
+        cita.id?.let {
+            db.collection("agendar_cita").document(it)
+                .update("estado", "confirmada")
+                .addOnSuccessListener {
+                    Toast.makeText(this, "Cita confirmada", Toast.LENGTH_SHORT).show()
+                }
+        }
     }
 
     private fun cancelarCita(cita: CitaDoctor) {
-        // Simulación de cancelación
-        android.widget.Toast.makeText(this, "Cita de ${cita.nombrePaciente} cancelada",
-            android.widget.Toast.LENGTH_SHORT).show()
+        cita.id?.let {
+            db.collection("agendar_cita").document(it)
+                .update("estado", "cancelada")
+                .addOnSuccessListener {
+                    Toast.makeText(this, "Cita cancelada", Toast.LENGTH_SHORT).show()
+                }
+        }
     }
-
-    // Clase de datos para citas
-    data class CitaDoctor(
-        val nombrePaciente: String,
-        val servicio: String,
-        val fechaHora: String,
-        val estado: String // pendiente, confirmada, cancelada
-    )
 }
+
+@IgnoreExtraProperties
+data class CitaDoctor(
+    var id: String? = null,
+    @get:PropertyName("dni_cliente")
+    @set:PropertyName("dni_cliente")
+    var dni_cliente: String = "",
+    @get:PropertyName("tipo_servicio")
+    @set:PropertyName("tipo_servicio")
+    var tipo_servicio: String = "",
+    @get:PropertyName("fecha_hora")
+    @set:PropertyName("fecha_hora")
+    var fecha_hora: Timestamp? = null,
+    var estado: String = ""
+)
