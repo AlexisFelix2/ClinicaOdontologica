@@ -82,17 +82,20 @@
                 android:src="@drawable/ic_search"/>
 
             <EditText
+                android:id="@+id/etBuscarServicio"
                 android:hint="Buscar limpieza..."
                 android:textSize="15sp"
                 android:layout_marginStart="10dp"
                 android:background="@android:color/transparent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
         </LinearLayout>
 
         <!-- TARJETAS -->
         <!-- 1. Limpieza -->
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardLimpieza"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginBottom="12dp"
@@ -146,6 +149,7 @@
 
         <!-- 2. Revisión -->
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardRevision"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginBottom="12dp"
@@ -198,6 +202,7 @@
 
         <!-- 3. Ortodoncia -->
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardOrtodoncia"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginBottom="12dp"
@@ -250,6 +255,7 @@
 
         <!-- 4. Blanqueamiento -->
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardBlanqueamiento"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginBottom="12dp"
@@ -302,6 +308,7 @@
 
         <!-- 5. Implantes -->
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardImplantes"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginBottom="20dp"

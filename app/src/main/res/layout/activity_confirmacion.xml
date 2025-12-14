@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F4F6F9"
-    android:padding="20dp"
-    tools:context=".confirmacion">
+    android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,139 +13,58 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-        <!-- Icono de confirmación -->
         <ImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:src="@drawable/ic_check_circle"
             app:tint="#4CAF50"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="24dp" />
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="16dp" />
 
-        <!-- Título -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="¡Solicitud Enviada!"
-            android:textSize="28sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="#1A1A1A"
             android:gravity="center"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="6dp" />
 
-        <!-- Mensaje -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Recibirás una notificación tan pronto como la doctora confirme la disponibilidad."
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textColor="#666"
             android:gravity="center"
-            android:layout_marginBottom="40dp"
-            android:lineSpacingExtra="4dp" />
+            android:layout_marginBottom="20dp"
+            android:lineSpacingExtra="2dp" />
 
-        <!-- Resumen de la Cita -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp">
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="3dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="24dp">
+                android:padding="16dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Resumen de la Cita"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="#1A1A1A"
-                    android:layout_marginBottom="20dp" />
+                    android:layout_marginBottom="12dp" />
 
                 <!-- Estado -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="16dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Estado"
-                        android:textColor="#666"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txtEstado"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Pendiente"
-                        android:textColor="#FF9800"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <!-- Servicio -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="16dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Servicio"
-                        android:textColor="#666"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txtServicio"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Limpieza Dental"
-                        android:textColor="#1A1A1A"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <!-- Fecha y Hora -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="16dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Fecha y hora"
-                        android:textColor="#666"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txtFechaHora"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="29 Oct - 10:30 AM"
-                        android:textColor="#1A1A1A"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <!-- Profesional -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -158,44 +75,103 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:text="Estado"
+                        android:textColor="#666" />
+
+                    <TextView
+                        android:id="@+id/txtEstado"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pendiente"
+                        android:textColor="#FF9800"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Servicio -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Servicio"
+                        android:textColor="#666" />
+
+                    <TextView
+                        android:id="@+id/txtServicio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textColor="#1A1A1A" />
+                </LinearLayout>
+
+                <!-- Fecha -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Fecha y hora"
+                        android:textColor="#666" />
+
+                    <TextView
+                        android:id="@+id/txtFechaHora"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textColor="#1A1A1A" />
+                </LinearLayout>
+
+                <!-- Profesional -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="Profesional"
-                        android:textColor="#666"
-                        android:textSize="16sp" />
+                        android:textColor="#666" />
 
                     <TextView
                         android:id="@+id/txtProfesional"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Dra. Elena Morales"
-                        android:textColor="#1A1A1A"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
+                        android:textStyle="bold"
+                        android:textColor="#1A1A1A" />
                 </LinearLayout>
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Botón Añadir al Calendario -->
         <Button
             android:id="@+id/btnAgendarCalendario"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="50dp"
             android:text="Añadir al calendario"
             android:backgroundTint="#2196F3"
             android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="12dp" />
 
-        <!-- Botón Volver al Inicio -->
         <Button
             android:id="@+id/btnVolverInicio"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="50dp"
             android:text="Volver al Inicio"
             android:backgroundTint="#0099FF"
             android:textColor="@android:color/white"
-            android:textSize="16sp"
             android:textStyle="bold" />
 
     </LinearLayout>

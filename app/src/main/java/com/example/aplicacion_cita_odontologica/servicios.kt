@@ -2,70 +2,98 @@ package com.example.aplicacion_cita_odontologica
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
+import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.card.MaterialCardView
 
 class servicios : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_servicios)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        configurarBuscador()
     }
 
-    // Función para el botón Atrás
+    // ================= BUSCADOR =================
+    private fun configurarBuscador() {
+        val buscador = findViewById<EditText>(R.id.etBuscarServicio)
+
+        val cardLimpieza = findViewById<MaterialCardView>(R.id.cardLimpieza)
+        val cardRevision = findViewById<MaterialCardView>(R.id.cardRevision)
+        val cardOrtodoncia = findViewById<MaterialCardView>(R.id.cardOrtodoncia)
+        val cardBlanqueamiento = findViewById<MaterialCardView>(R.id.cardBlanqueamiento)
+        val cardImplantes = findViewById<MaterialCardView>(R.id.cardImplantes)
+
+        buscador.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val texto = s.toString().lowercase()
+
+                cardLimpieza.visibility =
+                    if ("limpieza".contains(texto)) View.VISIBLE else View.GONE
+
+                cardRevision.visibility =
+                    if ("revisión".contains(texto) || "revision".contains(texto)) View.VISIBLE else View.GONE
+
+                cardOrtodoncia.visibility =
+                    if ("ortodoncia".contains(texto)) View.VISIBLE else View.GONE
+
+                cardBlanqueamiento.visibility =
+                    if ("blanqueamiento".contains(texto)) View.VISIBLE else View.GONE
+
+                cardImplantes.visibility =
+                    if ("implantes".contains(texto)) View.VISIBLE else View.GONE
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+    }
+
+    // ================= NAVEGACIÓN =================
     fun volverALobby(view: View) {
-        val intent = Intent(this, lobby::class.java)
-        startActivity(intent)
+        finish()
     }
 
-    // Función para Limpieza Dental
     fun seleccionarLimpieza(view: View) {
-        val intent = Intent(this, seleccionar_fecha::class.java)
-        intent.putExtra("servicio", "Limpieza Dental Profesional")
-        startActivity(intent)
+        startActivity(Intent(this, seleccionar_fecha::class.java)
+            .putExtra("servicio", "Limpieza Dental Profesional"))
     }
 
-    // Función para Revisión General
     fun seleccionarRevision(view: View) {
-        val intent = Intent(this, seleccionar_fecha::class.java)
-        intent.putExtra("servicio", "Revisión General")
-        startActivity(intent)
+        startActivity(Intent(this, seleccionar_fecha::class.java)
+            .putExtra("servicio", "Revisión General"))
     }
 
-    // Función para Ortodoncia
     fun seleccionarOrtodoncia(view: View) {
-        val intent = Intent(this, seleccionar_fecha::class.java)
-        intent.putExtra("servicio", "Ortodoncia")
-        startActivity(intent)
+        startActivity(Intent(this, seleccionar_fecha::class.java)
+            .putExtra("servicio", "Ortodoncia"))
     }
 
-    // Función para Blanqueamiento
     fun seleccionarBlanqueamiento(view: View) {
-        val intent = Intent(this, seleccionar_fecha::class.java)
-        intent.putExtra("servicio", "Blanqueamiento Dental")
-        startActivity(intent)
+        startActivity(Intent(this, seleccionar_fecha::class.java)
+            .putExtra("servicio", "Blanqueamiento Dental"))
     }
 
-    // Función para Implantes Dentales
     fun seleccionarImplantes(view: View) {
-        val intent = Intent(this, seleccionar_fecha::class.java)
-        intent.putExtra("servicio", "Implantes Dentales")
-        startActivity(intent)
+        startActivity(Intent(this, seleccionar_fecha::class.java)
+            .putExtra("servicio", "Implantes Dentales"))
     }
 
-    // Función para "No sé qué necesito"
     fun noSeQueNecesito(view: View) {
-        // Aquí podría ir un asistente o información adicional
-        // Por ahora redirigimos al lobby
-        val intent = Intent(this, lobby::class.java)
-        startActivity(intent)
+        finish()
     }
 }
