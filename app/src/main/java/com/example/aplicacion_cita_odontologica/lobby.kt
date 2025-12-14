@@ -140,7 +140,7 @@ class lobby : AppCompatActivity() {
                     startActivity(intent)
                 }
                 R.id.nav_servicios -> {
-                    val intent = Intent(this, servicios::class.java)
+                    val intent = Intent(this, servicios_1::class.java)
                     startActivity(intent)
                 }
                 R.id.nav_doctors -> {
@@ -194,6 +194,11 @@ class lobby : AppCompatActivity() {
 
     fun irAMiPerfil(view: View) {
         val intent = Intent(this, perfil_paciente::class.java)
+        startActivity(intent)
+    }
+
+    fun irAServicios_1(view: View) {
+        val intent = Intent(this, servicios_1::class.java)
         startActivity(intent)
     }
 

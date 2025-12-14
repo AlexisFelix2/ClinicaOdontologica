@@ -59,27 +59,27 @@
             <!-- Grid de opcciones (tu contenido actual se mantiene igual) -->
             <GridLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:rowCount="2"
+                android:layout_height="287dp"
+                android:layout_marginTop="20dp"
                 android:columnCount="2"
-                android:layout_marginTop="20dp">
+                android:rowCount="2">
 
                 <!-- Reservar cita -->
                 <com.google.android.material.card.MaterialCardView
-                    android:layout_margin="8dp"
                     android:layout_width="0dp"
                     android:layout_height="120dp"
-                    app:cardElevation="3dp"
-                    app:cardCornerRadius="14dp"
+                    android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:layout_rowWeight="1">
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="3dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:onClick="irAServicios"
                         android:orientation="vertical"
-                        android:padding="14dp"
-                        android:onClick="irAServicios">
+                        android:padding="14dp">
 
                         <ImageView
                             android:layout_width="32dp"
@@ -107,20 +107,20 @@
 
                 <!-- Mis citas -->
                 <com.google.android.material.card.MaterialCardView
-                    android:layout_margin="8dp"
                     android:layout_width="0dp"
                     android:layout_height="120dp"
-                    app:cardElevation="3dp"
-                    app:cardCornerRadius="14dp"
+                    android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:layout_rowWeight="1">
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="3dp">
 
                     <LinearLayout
-                        android:orientation="vertical"
-                        android:padding="14dp"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:onClick="irAMisCitas">
+                        android:layout_height="130dp"
+                        android:onClick="irAMisCitas"
+                        android:orientation="vertical"
+                        android:padding="14dp">
 
                         <ImageView
                             android:layout_width="32dp"
@@ -128,38 +128,38 @@
                             android:src="@drawable/ic_calendar_check" />
 
                         <TextView
-                            android:text="Mis citas"
-                            android:textStyle="bold"
-                            android:textSize="16sp"
-                            android:layout_marginTop="10dp"
-                            android:textColor="#1A1A1A"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Mis citas"
+                            android:textColor="#1A1A1A"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
                         <TextView
-                            android:text="Revisa tus citas programadas"
-                            android:textSize="13sp"
-                            android:textColor="#666"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:text="Revisa tus citas programadas"
+                            android:textColor="#666"
+                            android:textSize="13sp" />
 
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
                 <!-- Servicios -->
                 <com.google.android.material.card.MaterialCardView
-                    android:layout_margin="8dp"
                     android:layout_width="0dp"
                     android:layout_height="120dp"
-                    app:cardElevation="3dp"
-                    app:cardCornerRadius="14dp"
+                    android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:layout_rowWeight="1">
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="3dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:onClick="irAServicios"
+                        android:onClick="irAServicios_1"
                         android:orientation="vertical"
                         android:padding="14dp">
 
@@ -188,20 +188,20 @@
 
                 <!-- Mi perfil -->
                 <com.google.android.material.card.MaterialCardView
-                    android:layout_margin="8dp"
                     android:layout_width="0dp"
                     android:layout_height="120dp"
-                    app:cardElevation="3dp"
-                    app:cardCornerRadius="14dp"
+                    android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:layout_rowWeight="1">
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="3dp">
 
                     <LinearLayout
-                        android:orientation="vertical"
-                        android:padding="14dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:onClick="irAMiPerfil">
+                        android:onClick="irAMiPerfil"
+                        android:orientation="vertical"
+                        android:padding="14dp">
 
                         <ImageView
                             android:layout_width="32dp"
@@ -209,20 +209,20 @@
                             android:src="@drawable/ic_profile" />
 
                         <TextView
-                            android:text="Mi perfil"
-                            android:textStyle="bold"
-                            android:textSize="16sp"
-                            android:layout_marginTop="10dp"
-                            android:textColor="#1A1A1A"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Mi perfil"
+                            android:textColor="#1A1A1A"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
                         <TextView
-                            android:text="Actualiza tus datos"
-                            android:textSize="13sp"
-                            android:textColor="#666"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:text="Ver tus datos"
+                            android:textColor="#666"
+                            android:textSize="13sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 

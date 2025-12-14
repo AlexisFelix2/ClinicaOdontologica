@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
                 R.id.nav_servicios -> {
-                    val intent = Intent(this, servicios::class.java)
+                    val intent = Intent(this, servicios_1::class.java)
                     startActivity(intent)
                 }
                 R.id.nav_perfil_paciente -> {

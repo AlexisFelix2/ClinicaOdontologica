@@ -1,5 +1,6 @@
 package com.example.aplicacion_cita_odontologica
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -7,12 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class doctor : AppCompatActivity() {
+class servicios_1 : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_doctor)
+        setContentView(R.layout.activity_servicios_detalle)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -21,8 +22,12 @@ class doctor : AppCompatActivity() {
         }
     }
 
-    // BOTÓN VOLVER (flecha)
-    fun volverALobby(view: android.view.View) {
+    // Flecha atrás
+    fun volverALobby(view: View) {
+        finish()
+    }
+
+    fun noSeQueNecesito(view: View) {
         finish()
     }
 }

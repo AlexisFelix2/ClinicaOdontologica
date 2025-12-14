@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4F6F9">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- HEADER -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_arrow_back"
+                android:contentDescription="Volver"
+                android:onClick="volverALobby"/>
+
+            <TextView
+                android:layout_marginStart="12dp"
+                android:text="Servicios - Información"
+                android:textSize="20sp"
+                android:textColor="#0096FF"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <!-- SUBTÍTULO -->
+        <TextView
+            android:layout_marginTop="10dp"
+            android:text="Consulta los servicios y sus detalles:"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- EJEMPLO DE TARJETA DE SERVICIO: Blanqueamiento -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="3dp">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:padding="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- Icono -->
+                <ImageView
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="#E5EEF7"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_whitening"/>
+
+                <!-- Texto principal -->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_marginStart="14dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvServicioNombre1"
+                        android:text="Blanqueamiento Dental"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="#0096FF"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tvServicioDesc1"
+                        android:text="Aclaramiento dental profesional, seguro y supervisado."
+                        android:textSize="13sp"
+                        android:textColor="#666666"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <!-- fila de detalles (duración y costo) -->
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:text="Duración: "
+                            android:textSize="13sp"
+                            android:textColor="#444444"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/tvServicioDur1"
+                            android:text="1 - 2 horas"
+                            android:textSize="13sp"
+                            android:textColor="#444444"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="12dp"/>
+
+                        <TextView
+                            android:text="Costo: "
+                            android:textSize="13sp"
+                            android:textColor="#444444"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/tvServicioPrecio1"
+                            android:text="S/ 50"
+                            android:textSize="13sp"
+                            android:textColor="#444444"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Revisión General -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="3dp">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:padding="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="#E5EEF7"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_revision"
+                    android:contentDescription="Icono revisión"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_marginStart="14dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="Revisión General"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="#0096FF"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="Chequeo completo de salud bucal y diagnóstico."
+                        android:textSize="13sp"
+                        android:textColor="#666666"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:text="Duración: "
+                            android:textSize="13sp"
+                            android:textColor="#444444"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:text="30 - 45 min"
+                            android:textSize="13sp"
+                            android:textColor="#444444"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="12dp"/>
+
+                        <TextView
+                            android:text="Costo: "
+                            android:textSize="13sp"
+                            android:textColor="#444444"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:text="S/ 30"
+                            android:textSize="13sp"
+                            android:textColor="#444444"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Ortodoncia -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="3dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="14dp">
+
+                <ImageView
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="#E5EEF7"
+                    android:contentDescription="Icono ortodoncia"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/diente" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ortodoncia"
+                        android:textColor="#0096FF"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="Alineación dental y correcciones con aparatología."
+                        android:textColor="#666666"
+                        android:textSize="13sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Duración: "
+                            android:textColor="#444444"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="Sesiones según plan"
+                            android:textColor="#444444"
+                            android:textSize="13sp" />
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Costo: "
+                            android:textColor="#444444"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:text="Desde S/ 200"
+                            android:textColor="#444444"
+                            android:textSize="13sp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Implantes -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="3dp">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:padding="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="#E5EEF7"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_implants"
+                    android:contentDescription="Icono implantes"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_marginStart="14dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="Implantes Dentales"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="#0096FF"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="Reemplazo de piezas dentales con prótesis fijas."
+                        android:textSize="13sp"
+                        android:textColor="#666666"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:text="Duración: "
+                            android:textSize="13sp"
+                            android:textColor="#444444"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:text="1 - 3 horas"
+                            android:textSize="13sp"
+                            android:textColor="#444444"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="12dp"/>
+
+                        <TextView
+                            android:text="Costo: "
+                            android:textSize="13sp"
+                            android:textColor="#444444"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:text="S/ 400"
+                            android:textSize="13sp"
+                            android:textColor="#444444"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- BOTÓN FINAL - contacto/ayuda -->
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="40dp"
+            android:backgroundTint="#8A8686"
+            android:onClick="noSeQueNecesito"
+            android:text="Contactar / Más información"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

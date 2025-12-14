@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import android.view.View
 
 class perfil_paciente : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,6 +84,9 @@ class perfil_paciente : AppCompatActivity() {
                 buscarYReemplazarTextView(view.getChildAt(i), textoBuscar, textoNuevo)
             }
         }
+    }
+    fun volverALobby(view: View) {
+        finish()
     }
 
 

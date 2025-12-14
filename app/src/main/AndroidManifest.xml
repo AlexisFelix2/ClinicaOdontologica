@@ -56,6 +56,9 @@
             android:name=".servicios"
             android:exported="false" />
         <activity
+            android:name=".servicios_1"
+            android:exported="false" />
+        <activity
             android:name=".lobby"
             android:exported="false" />
         <activity
