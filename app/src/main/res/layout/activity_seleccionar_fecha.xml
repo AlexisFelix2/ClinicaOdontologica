@@ -28,6 +28,7 @@
 
             <TextView
                 android:layout_marginStart="12dp"
+                android:layout_marginTop="4dp"
                 android:text="Selecciona Fecha y Hora"
                 android:textSize="22sp"
                 android:textStyle="bold"
@@ -40,6 +41,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="24dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="2dp">
@@ -114,85 +116,33 @@
                 android:textSize="20sp" />
         </LinearLayout>
 
-        <!-- Días -->
+        <!-- Días de la semana -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="D"
-                android:textColor="#666"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="L"
-                android:textColor="#666"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="M"
-                android:textColor="#666"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="M"
-                android:textColor="#666"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="J"
-                android:textColor="#666"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="V"
-                android:textColor="#999"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="S"
-                android:textColor="#999"
-                android:textStyle="bold" />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="D" android:textColor="#666" android:textStyle="bold"/>
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="L" android:textColor="#666" android:textStyle="bold"/>
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="M" android:textColor="#666" android:textStyle="bold"/>
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="M" android:textColor="#666" android:textStyle="bold"/>
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="J" android:textColor="#666" android:textStyle="bold"/>
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="V" android:textColor="#999" android:textStyle="bold"/>
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="S" android:textColor="#999" android:textStyle="bold"/>
         </LinearLayout>
 
+        <!-- Calendario -->
         <GridView
             android:id="@+id/gridCalendario"
             android:layout_width="match_parent"
             android:layout_height="192dp"
             android:numColumns="7"
-            android:horizontalSpacing="4dp"
+            android:horizontalSpacing="8dp"
             android:verticalSpacing="8dp"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="24dp"/>
 
+        <!-- Horarios -->
         <TextView
             android:id="@+id/txtHorariosTitle"
             android:text="Selecciona una fecha para ver horarios"
@@ -208,18 +158,25 @@
             android:columnCount="2"
             android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:rowOrderPreserved="false"/>
 
+        <!-- Botón Confirmar Horario -->
         <Button
             android:id="@+id/btnConfirmarHorario"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="24dp"
             android:text="Confirmar Horario"
-            android:enabled="false"
-            android:backgroundTint="#E0E0E0"
-            android:textColor="#999"
+            android:textAllCaps="false"
+            android:textSize="15sp"
             android:textStyle="bold"
-            android:layout_marginTop="24dp"/>
+            android:textColor="@android:color/white"
+            android:backgroundTint="#0099FF"
+            app:cornerRadius="14dp"
+            android:enabled="false" />
 
     </LinearLayout>
 </ScrollView>
