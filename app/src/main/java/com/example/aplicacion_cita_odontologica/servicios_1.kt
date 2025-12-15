@@ -26,8 +26,4 @@ class servicios_1 : AppCompatActivity() {
     fun volverALobby(view: View) {
         finish()
     }
-
-    fun noSeQueNecesito(view: View) {
-        finish()
-    }
 }

@@ -399,15 +399,6 @@
         </com.google.android.material.card.MaterialCardView>
 
         <!-- BOTÓN FINAL - contacto/ayuda -->
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="40dp"
-            android:backgroundTint="#8A8686"
-            android:onClick="noSeQueNecesito"
-            android:text="Contactar / Más información"
-            android:textColor="@android:color/black"
-            android:textSize="15sp" />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
