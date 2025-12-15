@@ -48,7 +48,7 @@
                         android:id="@+id/txtNombreDoctor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Dra. García"
+                        android:text="Doctor(a) Garcia"
                         android:textColor="#1A1A1A"
                         android:textSize="24sp"
                         android:textStyle="bold" />

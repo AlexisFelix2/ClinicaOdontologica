@@ -283,7 +283,7 @@ class lobby_doctor : AppCompatActivity() {
         val apellidos = prefs.getString("apellidos", "")
 
         txtNombreDoctor = findViewById(R.id.txtNombreDoctor)
-        val saludo = "Dra. $nombre $apellidos"
+        val saludo = "Dr(a). $nombre $apellidos"
         txtNombreDoctor.text = saludo
     }
 
@@ -299,7 +299,7 @@ class lobby_doctor : AppCompatActivity() {
         val txtEspecialidadDoctor = headerView.findViewById<TextView>(R.id.txtEspecialidadDoctor)
         val txtCorreoDoctor = headerView.findViewById<TextView>(R.id.txtCorreoDoctor)
 
-        txtNombreHeader.text = "Dra. $nombre $apellidos"
+        txtNombreHeader.text = "Dr(a). $nombre $apellidos"
         txtEspecialidadDoctor.text = especialidad
         txtCorreoDoctor.text = correo
     }
