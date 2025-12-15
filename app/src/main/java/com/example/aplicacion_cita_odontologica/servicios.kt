@@ -94,6 +94,7 @@ class servicios : AppCompatActivity() {
     }
 
     fun noSeQueNecesito(view: View) {
-        finish()
+        startActivity(Intent(this, seleccionar_fecha::class.java)
+            .putExtra("servicio", "Consulta general"))
     }
 }
