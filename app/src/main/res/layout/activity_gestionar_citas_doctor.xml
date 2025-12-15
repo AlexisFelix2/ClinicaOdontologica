@@ -21,9 +21,9 @@
             android:id="@+id/btnBack"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_time"
-            android:layout_gravity="center_vertical" />
+            android:src="@drawable/ic_arrow_back" />
 
         <TextView
             android:layout_width="0dp"
@@ -54,7 +54,7 @@
             android:backgroundTint="#FF6B35"
             android:text="Pendientes"
             android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/btnConfirmadas"
@@ -66,7 +66,7 @@
             android:backgroundTint="@color/white"
             android:text="Confirmadas"
             android:textColor="#666"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/btnCanceladas"
@@ -77,7 +77,7 @@
             android:backgroundTint="@color/white"
             android:text="Canceladas "
             android:textColor="#666"
-            android:textSize="11sp" />
+            android:textSize="10sp" />
     </LinearLayout>
 
     <!-- Contenedor de citas -->

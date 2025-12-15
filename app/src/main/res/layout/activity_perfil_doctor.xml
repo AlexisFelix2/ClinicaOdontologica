@@ -25,9 +25,10 @@
                 android:id="@+id/btnBack"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:layout_gravity="center_vertical"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_arrow_back"
-                android:layout_gravity="center_vertical" />
+                android:onClick="volver"
+                android:src="@drawable/ic_arrow_back" />
 
             <TextView
                 android:layout_width="0dp"
@@ -59,6 +60,7 @@
                 android:padding="4dp" />
 
             <TextView
+                android:id="@+id/tvNombreCompleto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Dra. Ana García"
@@ -68,6 +70,7 @@
                 android:layout_marginTop="12dp" />
 
             <TextView
+                android:id="@+id/tvEspecialidad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Número de Colegiado: 12345"
@@ -121,6 +124,13 @@
                         android:text="Ana"
                         android:textSize="16sp"
                         android:textColor="#1A1A1A" />
+
+                    <EditText
+                        android:id="@+id/etNombreDoctor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:hint="Nombre" />
                 </LinearLayout>
 
                 <!-- Apellidos -->
@@ -145,6 +155,13 @@
                         android:text="García López"
                         android:textSize="16sp"
                         android:textColor="#1A1A1A" />
+
+                    <EditText
+                        android:id="@+id/etApellidosDoctor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:hint="Apellidos" />
                 </LinearLayout>
 
                 <!-- Correo electrónico -->
@@ -193,6 +210,13 @@
                         android:text="Endodoncista"
                         android:textSize="16sp"
                         android:textColor="#1A1A1A" />
+
+                    <EditText
+                        android:id="@+id/etEspecialidadDoctor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:hint="Especialidad" />
                 </LinearLayout>
 
                 <!-- Biografía -->
@@ -218,6 +242,16 @@
                         android:textSize="16sp"
                         android:textColor="#1A1A1A"
                         android:lineSpacingExtra="4dp" />
+
+                    <EditText
+                        android:id="@+id/etBiografiaDoctor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:hint="Biografía"
+                        android:inputType="textMultiLine"
+                        android:minLines="3"
+                        android:gravity="top" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -233,7 +267,8 @@
             android:textStyle="bold"
             android:textColor="@color/white"
             android:backgroundTint="#0099FF"
-            android:layout_marginBottom="24dp" />
+            android:layout_marginBottom="24dp"
+            android:onClick="editarPerfil" />
 
         <!-- Horario -->
         <com.google.android.material.card.MaterialCardView
@@ -241,52 +276,7 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="16dp"
             app:cardElevation="4dp"
-            android:onClick="irAHorario">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="24dp"
-                android:gravity="center_vertical">
-
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:src="@drawable/ic_schedule"
-                    app:tint="#0099FF" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:layout_marginStart="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Mi Horario Disponible"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="#1A1A1A" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Configura tus horarios de atención"
-                        android:textSize="14sp"
-                        android:textColor="#666666"
-                        android:layout_marginTop="4dp" />
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_chevron_right"
-                    app:tint="#999999" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+            android:onClick="irAHorario"/>
 
     </LinearLayout>
 </ScrollView>

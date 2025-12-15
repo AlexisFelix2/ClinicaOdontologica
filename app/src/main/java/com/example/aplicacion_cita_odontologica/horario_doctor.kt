@@ -1,21 +1,33 @@
 package com.example.aplicacion_cita_odontologica
 
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.CompoundButton
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import java.util.Calendar
 
 class horario_doctor : AppCompatActivity() {
 
     private lateinit var btnGuardarHorario: Button
+
+    // Lista de Views por día para simplificar el manejo
+    private val diaViews = listOf(
+        DiaViewReferences(R.id.switchLunes, R.id.layoutHorarioLunes, R.id.etLunesInicio, R.id.etLunesFin, R.id.tvLunesNoDisponible),
+        DiaViewReferences(R.id.switchMartes, R.id.layoutHorarioMartes, R.id.etMartesInicio, R.id.etMartesFin, R.id.tvMartesNoDisponible),
+        // Miércoles ya tiene un EditText de inicio/fin en el XML, aunque por defecto está oculto
+        DiaViewReferences(R.id.switchMiercoles, R.id.layoutHorarioMiercoles, R.id.etMiercolesInicio, R.id.etMiercolesFin, R.id.tvMiercolesNoDisponible),
+        DiaViewReferences(R.id.switchJueves, R.id.layoutHorarioJueves, R.id.etJuevesInicio, R.id.etJuevesFin, R.id.tvJuevesNoDisponible),
+        DiaViewReferences(R.id.switchViernes, R.id.layoutHorarioViernes, R.id.etViernesInicio, R.id.etViernesFin, R.id.tvViernesNoDisponible)
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,48 +50,60 @@ class horario_doctor : AppCompatActivity() {
         findViewById<View>(R.id.btnBack).setOnClickListener {
             onBackPressed()
         }
+
+        // Asignar IDs para Miércoles (se agregaron en el XML)
+        findViewById<EditText>(R.id.etMiercolesInicio).apply {
+            setOnClickListener { showTimePickerDialog(this) }
+        }
+        findViewById<EditText>(R.id.etMiercolesFin).apply {
+            setOnClickListener { showTimePickerDialog(this) }
+        }
     }
 
     private fun setupSwitches() {
-        // Lunes
-        val switchLunes: SwitchCompat = findViewById(R.id.switchLunes)
-        val layoutHorarioLunes: LinearLayout = findViewById(R.id.layoutHorarioLunes)
+        diaViews.forEach { setupDay(it) }
+    }
 
-        switchLunes.setOnCheckedChangeListener { _, isChecked ->
-            layoutHorarioLunes.visibility = if (isChecked) View.VISIBLE else View.GONE
+    private fun setupDay(refs: DiaViewReferences) {
+        val switch: SwitchCompat = findViewById(refs.switchId)
+        val layoutHorario: LinearLayout = findViewById(refs.layoutHorarioId)
+        val etInicio: EditText = findViewById(refs.etInicioId)
+        val etFin: EditText = findViewById(refs.etFinId)
+        val tvNoDisponible: TextView = findViewById(refs.tvNoDisponibleId)
+
+        // Manejar el cambio de estado del switch
+        switch.setOnCheckedChangeListener { _, isChecked ->
+            layoutHorario.visibility = if (isChecked) View.VISIBLE else View.GONE
+            tvNoDisponible.visibility = if (isChecked) View.GONE else View.VISIBLE
         }
 
-        // Martes
-        val switchMartes: SwitchCompat = findViewById(R.id.switchMartes)
-        val layoutHorarioMartes: LinearLayout = findViewById(R.id.layoutHorarioMartes)
+        // Configurar TimePicker para los EditText
+        etInicio.setOnClickListener { showTimePickerDialog(etInicio) }
+        etFin.setOnClickListener { showTimePickerDialog(etFin) }
 
-        switchMartes.setOnCheckedChangeListener { _, isChecked ->
-            layoutHorarioMartes.visibility = if (isChecked) View.VISIBLE else View.GONE
+        // Inicializar la visibilidad basada en el estado inicial del switch (del XML)
+        layoutHorario.visibility = if (switch.isChecked) View.VISIBLE else View.GONE
+        tvNoDisponible.visibility = if (switch.isChecked) View.GONE else View.VISIBLE
+    }
+
+    private fun showTimePickerDialog(editText: EditText) {
+        val calendar = Calendar.getInstance()
+
+        // Intenta obtener la hora actual del EditText si no está vacío
+        val initialTime = editText.text.toString()
+        val (currentHour, currentMinute) = if (initialTime.contains(":")) {
+            initialTime.split(":").map { it.toIntOrNull() ?: 0 }
+        } else {
+            listOf(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE))
         }
 
-        // Miércoles
-        val switchMiercoles: SwitchCompat = findViewById(R.id.switchMiercoles)
-        val tvMiercolesNoDisponible: TextView = findViewById(R.id.tvMiercolesNoDisponible)
-
-        switchMiercoles.setOnCheckedChangeListener { _, isChecked ->
-            tvMiercolesNoDisponible.visibility = if (isChecked) View.GONE else View.VISIBLE
+        val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+            val formattedTime = String.format("%02d:%02d", hourOfDay, minute)
+            editText.setText(formattedTime)
         }
 
-        // Jueves
-        val switchJueves: SwitchCompat = findViewById(R.id.switchJueves)
-        val layoutHorarioJueves: LinearLayout = findViewById(R.id.layoutHorarioJueves)
-
-        switchJueves.setOnCheckedChangeListener { _, isChecked ->
-            layoutHorarioJueves.visibility = if (isChecked) View.VISIBLE else View.GONE
-        }
-
-        // Viernes
-        val switchViernes: SwitchCompat = findViewById(R.id.switchViernes)
-        val layoutHorarioViernes: LinearLayout = findViewById(R.id.layoutHorarioViernes)
-
-        switchViernes.setOnCheckedChangeListener { _, isChecked ->
-            layoutHorarioViernes.visibility = if (isChecked) View.VISIBLE else View.GONE
-        }
+        // Usamos TimePickerDialog con formato 24 horas (is24HourView = true)
+        TimePickerDialog(this, timeSetListener, currentHour, currentMinute, true).show()
     }
 
     private fun setupGuardarButton() {
@@ -89,62 +113,57 @@ class horario_doctor : AppCompatActivity() {
     }
 
     private fun guardarHorario() {
-        // Recoger todos los datos del formulario
-        val horario = HorarioDoctor(
-            lunes = if (findViewById<SwitchCompat>(R.id.switchLunes).isChecked) {
+        // Función auxiliar para obtener el HorarioDia o null
+        fun getHorarioDia(refs: DiaViewReferences): HorarioDia? {
+            val switch: SwitchCompat = findViewById(refs.switchId)
+            return if (switch.isChecked) {
                 HorarioDia(
-                    inicio = findViewById<EditText>(R.id.etLunesInicio).text.toString(),
-                    fin = findViewById<EditText>(R.id.etLunesFin).text.toString()
-                )
-            } else null,
-
-            martes = if (findViewById<SwitchCompat>(R.id.switchMartes).isChecked) {
-                HorarioDia(
-                    inicio = findViewById<EditText>(R.id.etMartesInicio).text.toString(),
-                    fin = findViewById<EditText>(R.id.etMartesFin).text.toString()
-                )
-            } else null,
-
-            miercoles = if (findViewById<SwitchCompat>(R.id.switchMiercoles).isChecked) {
-                HorarioDia(
-                    inicio = "09:00",
-                    fin = "17:00"
-                )
-            } else null,
-
-            jueves = if (findViewById<SwitchCompat>(R.id.switchJueves).isChecked) {
-                HorarioDia(
-                    inicio = findViewById<EditText>(R.id.etJuevesInicio).text.toString(),
-                    fin = findViewById<EditText>(R.id.etJuevesFin).text.toString()
-                )
-            } else null,
-
-            viernes = if (findViewById<SwitchCompat>(R.id.switchViernes).isChecked) {
-                HorarioDia(
-                    inicio = findViewById<EditText>(R.id.etViernesInicio).text.toString(),
-                    fin = findViewById<EditText>(R.id.etViernesFin).text.toString()
+                    inicio = findViewById<EditText>(refs.etInicioId).text.toString(),
+                    fin = findViewById<EditText>(refs.etFinId).text.toString()
                 )
             } else null
+        }
+
+        val horario = HorarioDoctor(
+            lunes = getHorarioDia(diaViews[0]),
+            martes = getHorarioDia(diaViews[1]),
+            miercoles = getHorarioDia(diaViews[2]),
+            jueves = getHorarioDia(diaViews[3]),
+            viernes = getHorarioDia(diaViews[4])
         )
 
-        // Mostrar mensaje de confirmación
-        android.widget.Toast.makeText(this,
+        // Validación simple
+        val diasIncompletos = horario.toList().filterNotNull().filter { it.inicio.isBlank() || it.fin.isBlank() }
+        if (diasIncompletos.isNotEmpty()) {
+            Toast.makeText(this, "Por favor, rellena las horas de todos los días marcados.", Toast.LENGTH_LONG).show()
+            return
+        }
+
+        Toast.makeText(this,
             "Horario guardado exitosamente",
-            android.widget.Toast.LENGTH_SHORT).show()
+            Toast.LENGTH_SHORT).show()
 
         // Simulación de guardado
-        // Aquí normalmente enviarías los datos al backend
         println("Horario guardado: $horario")
     }
 
-    // Clases de datos para el horario
+    private data class DiaViewReferences(
+        val switchId: Int,
+        val layoutHorarioId: Int,
+        val etInicioId: Int,
+        val etFinId: Int,
+        val tvNoDisponibleId: Int
+    )
+
     data class HorarioDoctor(
         val lunes: HorarioDia?,
         val martes: HorarioDia?,
         val miercoles: HorarioDia?,
         val jueves: HorarioDia?,
         val viernes: HorarioDia?
-    )
+    ) {
+        fun toList() = listOf(lunes, martes, miercoles, jueves, viernes)
+    }
 
     data class HorarioDia(
         val inicio: String,

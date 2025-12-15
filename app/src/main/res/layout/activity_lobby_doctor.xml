@@ -6,43 +6,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:openDrawer="start"
     tools:context=".lobby_doctor">
 
-    <!-- CONTENIDO PRINCIPAL -->
     <ScrollView
-        android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#F8F9FA"
-        android:padding="20dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="#F8F9FA"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <!-- Header con botón de menú -->
+            <!-- Header -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="24dp">
+                android:orientation="horizontal">
 
                 <ImageButton
                     android:id="@+id/btnMenu"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:padding="8dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:src="@drawable/ic_menu_tres"
-                    android:contentDescription="Abrir menú" />
+                    android:contentDescription="Abrir menú"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_menu_tres" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginStart="12dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
@@ -50,91 +49,93 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Dra. García"
+                        android:textColor="#1A1A1A"
                         android:textSize="24sp"
-                        android:textStyle="bold"
-                        android:textColor="#1A1A1A" />
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/txtFechaActual"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hoy, 24 Oct"
-                    android:textSize="14sp"
-                    android:textColor="#666"
-                    android:padding="8dp"
                     android:background="@drawable/rounded_bg_gray"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="Hoy, 24 Oct"
+                    android:textColor="#666"
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <!-- Estadísticas Rápidas -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="24dp">
+                android:layout_marginBottom="24dp"
+                android:orientation="horizontal">
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="80dp"
-                    android:layout_weight="1"
                     android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="2dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
                         android:gravity="center"
+                        android:orientation="vertical"
                         android:padding="12dp">
 
                         <TextView
+                            android:id="@+id/txtPendientesCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="3"
+                            android:text="0"
+                            android:textColor="#FF6B35"
                             android:textSize="24sp"
-                            android:textStyle="bold"
-                            android:textColor="#FF6B35" />
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Pendientes"
-                            android:textSize="12sp"
-                            android:textColor="#666" />
+                            android:textColor="#666"
+                            android:textSize="12sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="80dp"
-                    android:layout_weight="1"
                     android:layout_marginStart="8dp"
+                    android:layout_weight="1"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="2dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
                         android:gravity="center"
+                        android:orientation="vertical"
                         android:padding="12dp">
 
                         <TextView
+                            android:id="@+id/txtConfirmadasCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="5"
+                            android:text="0"
+                            android:textColor="#4CAF50"
                             android:textSize="24sp"
-                            android:textStyle="bold"
-                            android:textColor="#4CAF50" />
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Confirmadas"
-                            android:textSize="12sp"
-                            android:textColor="#666" />
+                            android:textColor="#666"
+                            android:textSize="12sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
@@ -143,250 +144,57 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:text="Tus citas para hoy"
-                android:textSize="18sp"
-                android:textStyle="bold"
                 android:textColor="#1A1A1A"
-                android:layout_marginBottom="16dp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <!-- Lista de Citas del Día -->
             <LinearLayout
+                android:id="@+id/containerCitasHoy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="32dp">
+                android:layout_marginBottom="32dp"
+                android:orientation="vertical">
 
-                <!-- Cita 1 -->
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="2dp">
+                <!-- Las citas de hoy se cargarán aquí dinámicamente -->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="16dp">
-
-                        <TextView
-                            android:layout_width="60dp"
-                            android:layout_height="wrap_content"
-                            android:text="09:00"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="#1A1A1A"
-                            android:gravity="center_vertical" />
-
-                        <View
-                            android:layout_width="1dp"
-                            android:layout_height="40dp"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginEnd="12dp"
-                            android:background="#E0E0E0" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Alejandro Vargas"
-                                android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:textColor="#1A1A1A" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Limpieza dental de rutina"
-                                android:textSize="14sp"
-                                android:textColor="#666"
-                                android:layout_marginTop="4dp" />
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Pendiente"
-                            android:textSize="12sp"
-                            android:textColor="#FF6B35"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="4dp"
-                            android:background="@drawable/rounded_bg_orange"
-                            android:gravity="center" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- Cita 2 -->
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="2dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="16dp">
-
-                        <TextView
-                            android:layout_width="60dp"
-                            android:layout_height="wrap_content"
-                            android:text="10:30"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="#1A1A1A"
-                            android:gravity="center_vertical" />
-
-                        <View
-                            android:layout_width="1dp"
-                            android:layout_height="40dp"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginEnd="12dp"
-                            android:background="#E0E0E0" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Beatriz Navarro"
-                                android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:textColor="#1A1A1A" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Consulta para ortodoncia"
-                                android:textSize="14sp"
-                                android:textColor="#666"
-                                android:layout_marginTop="4dp" />
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Pendiente"
-                            android:textSize="12sp"
-                            android:textColor="#FF6B35"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="4dp"
-                            android:background="@drawable/rounded_bg_orange"
-                            android:gravity="center" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- Cita 3 -->
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="2dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="16dp">
-
-                        <TextView
-                            android:layout_width="60dp"
-                            android:layout_height="wrap_content"
-                            android:text="12:00"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="#1A1A1A"
-                            android:gravity="center_vertical" />
-
-                        <View
-                            android:layout_width="1dp"
-                            android:layout_height="40dp"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginEnd="12dp"
-                            android:background="#E0E0E0" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Carlos Jiménez"
-                                android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:textColor="#1A1A1A" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Revisión post-endodoncia"
-                                android:textSize="14sp"
-                                android:textColor="#666"
-                                android:layout_marginTop="4dp" />
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Confirmada"
-                            android:textSize="12sp"
-                            android:textColor="#4CAF50"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="4dp"
-                            android:background="@drawable/rounded_bg_green"
-                            android:gravity="center" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
             <!-- Accesos Rápidos -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:text="Accesos rápidos"
-                android:textSize="18sp"
-                android:textStyle="bold"
                 android:textColor="#1A1A1A"
-                android:layout_marginBottom="16dp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-            <GridLayout
+            <androidx.gridlayout.widget.GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:rowCount="2"
-                android:columnCount="2"
-                android:layout_marginBottom="20dp">
+                android:layout_marginBottom="20dp"
+                app:columnCount="2"
+                app:rowCount="2">
 
                 <!-- Gestionar Citas -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="120dp"
+                    app:layout_columnWeight="1"
+                    app:layout_columnSpan="2"
                     android:layout_margin="8dp"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:onClick="irAGestionarCitas"
                     app:cardCornerRadius="16dp"
-                    app:cardElevation="3dp"
-                    android:onClick="irAGestionarCitas">
+                    app:cardElevation="3dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
                         android:gravity="center"
+                        android:orientation="vertical"
                         android:padding="16dp">
 
                         <ImageView
@@ -398,12 +206,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Gestionar Citas"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            android:textColor="#1A1A1A"
                             android:layout_marginTop="8dp"
-                            android:gravity="center" />
+                            android:gravity="center"
+                            android:text="Gestionar Citas"
+                            android:textColor="#1A1A1A"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -411,18 +219,17 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="120dp"
+                    app:layout_columnWeight="1"
                     android:layout_margin="8dp"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:onClick="irAPacientes"
                     app:cardCornerRadius="16dp"
-                    app:cardElevation="3dp"
-                    android:onClick="irAPacientes">
+                    app:cardElevation="3dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
                         android:gravity="center"
+                        android:orientation="vertical"
                         android:padding="16dp">
 
                         <ImageView
@@ -434,12 +241,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Pacientes"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            android:textColor="#1A1A1A"
                             android:layout_marginTop="8dp"
-                            android:gravity="center" />
+                            android:gravity="center"
+                            android:text="Pacientes"
+                            android:textColor="#1A1A1A"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -447,18 +254,17 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="120dp"
+                    app:layout_columnWeight="1"
                     android:layout_margin="8dp"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:onClick="irAMiPerfil"
                     app:cardCornerRadius="16dp"
-                    app:cardElevation="3dp"
-                    android:onClick="irAMiPerfil">
+                    app:cardElevation="3dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
                         android:gravity="center"
+                        android:orientation="vertical"
                         android:padding="16dp">
 
                         <ImageView
@@ -470,51 +276,16 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center"
                             android:text="Mi Perfil"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
                             android:textColor="#1A1A1A"
-                            android:layout_marginTop="8dp"
-                            android:gravity="center" />
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Horario -->
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="0dp"
-                    android:layout_height="120dp"
-                    android:layout_margin="8dp"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="3dp"
-                    android:onClick="irAHorario">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="16dp">
-
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/ic_schedule"
-                            app:tint="#9C27B0" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Mi Horario"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            android:textColor="#1A1A1A"
-                            android:layout_marginTop="8dp"
-                            android:gravity="center" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-            </GridLayout>
+            </androidx.gridlayout.widget.GridLayout>
 
         </LinearLayout>
     </ScrollView>
