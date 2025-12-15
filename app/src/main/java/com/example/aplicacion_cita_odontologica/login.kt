@@ -191,6 +191,8 @@ class login : AppCompatActivity() {
 
     // Función para el TextView "¿Olvidaste tu contraseña?"
     fun olvidarContrasena(view: View) {
-        Toast.makeText(this, "Función en desarrollo", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, RecuperarPasswordActivity::class.java)
+        startActivity(intent)
     }
+
 }

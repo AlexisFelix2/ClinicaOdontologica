@@ -67,6 +67,8 @@
         <activity
             android:name=".register"
             android:exported="false" />
+        <activity android:name=".RecuperarPasswordActivity" />
+
         <activity
             android:name=".login"
             android:exported="false" /> <!-- MainActivity sin intent-filter LAUNCHER -->
