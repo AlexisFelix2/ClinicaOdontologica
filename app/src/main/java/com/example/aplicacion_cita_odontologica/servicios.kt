@@ -69,7 +69,7 @@ class servicios : AppCompatActivity() {
     }
 
     fun seleccionarLimpieza(view: View) {
-        startActivity(Intent(this, seleccionar_fecha::class.java)
+        startActivity(Intent(this, doctores::class.java)
             .putExtra("servicio", "Limpieza Dental Profesional"))
     }
 

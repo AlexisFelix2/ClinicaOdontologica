@@ -16,6 +16,9 @@
             android:name=".doctor"
             android:exported="false" />
         <activity
+            android:name=".doctores"
+            android:exported="false" />
+        <activity
             android:name=".horario_doctor"
             android:exported="false" />
         <activity
