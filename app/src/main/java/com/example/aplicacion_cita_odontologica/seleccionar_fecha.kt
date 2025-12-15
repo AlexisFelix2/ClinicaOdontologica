@@ -37,7 +37,10 @@ class seleccionar_fecha : AppCompatActivity() {
         }
 
         val servicio = intent.getStringExtra("servicio") ?: "Servicio"
+        val doctor = intent.getStringExtra("doctor") ?: "Doctor"
+
         findViewById<TextView>(R.id.txtServicio).text = servicio
+        findViewById<TextView>(R.id.txtDoctor).text = doctor
 
         initViews()
         setupCalendar()
@@ -133,13 +136,6 @@ class seleccionar_fecha : AppCompatActivity() {
 
         val diaSemana = calFecha.get(Calendar.DAY_OF_WEEK)
 
-        if (diaSemana == Calendar.SUNDAY) {
-            txtHorariosTitle.text = "El doctor no atiende los domingos"
-            gridHorarios.visibility = View.GONE
-            deshabilitarConfirmacion()
-            return
-        }
-
         txtHorariosTitle.text = "Horarios para el ${formatearFecha(fechaSeleccionada)}"
         gridHorarios.visibility = View.VISIBLE
 
@@ -166,7 +162,7 @@ class seleccionar_fecha : AppCompatActivity() {
                 layoutParams = GridLayout.LayoutParams().apply {
                     width = 0
                     columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
-                    setMargins(8, 8, 8, 8)
+                    setMargins(12, 12, 12, 12)
                 }
                 setBackgroundColor(Color.parseColor("#E3F2FD"))
                 setTextColor(Color.parseColor("#0099FF"))
@@ -216,6 +212,7 @@ class seleccionar_fecha : AppCompatActivity() {
             if (fechaSeleccionada.isNotEmpty() && horaSeleccionada.isNotEmpty()) {
                 val intent = Intent(this, confirmacion::class.java)
                 intent.putExtra("servicio", findViewById<TextView>(R.id.txtServicio).text)
+                intent.putExtra("doctor", findViewById<TextView>(R.id.txtDoctor).text)
                 intent.putExtra("fecha", formatearFecha(fechaSeleccionada))
                 intent.putExtra("hora", horaSeleccionada)
                 startActivity(intent)
@@ -226,8 +223,8 @@ class seleccionar_fecha : AppCompatActivity() {
     private fun formatearFecha(fecha: String): String {
         val p = fecha.split("-")
         val meses = arrayOf(
-            "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-            "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+            "Enero","Febrero","Marzo","Abril","Mayo","Junio",
+            "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"
         )
         return "${p[0]} de ${meses[p[1].toInt() - 1]} de ${p[2]}"
     }
@@ -243,7 +240,7 @@ class seleccionar_fecha : AppCompatActivity() {
 
         override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
             val tv = convertView as? TextView ?: TextView(context).apply {
-                layoutParams = ViewGroup.LayoutParams(80, 80)
+                layoutParams = ViewGroup.LayoutParams(100, 100)
                 gravity = android.view.Gravity.CENTER
             }
 
