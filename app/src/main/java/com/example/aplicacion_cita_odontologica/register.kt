@@ -3,9 +3,11 @@ package com.example.aplicacion_cita_odontologica
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -21,6 +23,7 @@ class register : AppCompatActivity() {
     private lateinit var inputTelefono: EditText
     private lateinit var inputCorreo: EditText
     private lateinit var inputPassword: EditText
+    private lateinit var checkTerminos: CheckBox
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +50,7 @@ class register : AppCompatActivity() {
         inputTelefono = findViewById(R.id.inputTelefono)
         inputCorreo = findViewById(R.id.inputCorreo)
         inputPassword = findViewById(R.id.inputPassword)
+        checkTerminos = findViewById(R.id.checkTerminos)
     }
 
     // Función para el botón Atrás
@@ -54,6 +58,52 @@ class register : AppCompatActivity() {
         val intent = Intent(this, login::class.java)
         startActivity(intent)
         finish() // Cerrar esta actividad
+    }
+
+    // Función para mostrar términos y condiciones
+    fun mostrarTerminos(view: View) {
+        val terminos = """
+            TÉRMINOS Y CONDICIONES DE USO
+            
+            1. Aceptación de los Términos
+            Al registrarte y utilizar nuestra aplicación, aceptas cumplir con estos términos y condiciones.
+            
+            2. Uso de la Aplicación
+            • La aplicación está destinada exclusivamente para agendar citas odontológicas.
+            • Debes proporcionar información veraz y actualizada.
+            • Eres responsable de mantener la confidencialidad de tu cuenta y contraseña.
+            
+            3. Privacidad
+            • Respetamos tu privacidad y protegemos tus datos personales.
+            • Tus datos serán utilizados únicamente para gestionar tus citas y mejorar nuestro servicio.
+            • No compartiremos tu información con terceros sin tu consentimiento.
+            
+            4. Responsabilidades del Usuario
+            • No utilizar la aplicación para fines ilícitos.
+            • No intentar acceder a áreas restringidas de la aplicación.
+            • No proporcionar información falsa o engañosa.
+            
+            5. Modificaciones
+            Nos reservamos el derecho de modificar estos términos en cualquier momento.
+            
+            6. Contacto
+            Para cualquier consulta, contáctanos a: soporte@odontocita.com
+            
+            Al marcar la casilla de aceptación, confirmas que has leído, comprendido y aceptas estos términos y condiciones.
+        """.trimIndent()
+
+        AlertDialog.Builder(this)
+            .setTitle("Términos y Condiciones")
+            .setMessage(terminos)
+            .setPositiveButton("Aceptar") { dialog, _ ->
+                // Marcar automáticamente el CheckBox después de leer
+                checkTerminos.isChecked = true
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancelar") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     // Función para el botón Registrarse CON FIREBASE
@@ -65,6 +115,7 @@ class register : AppCompatActivity() {
         val telefono = inputTelefono.text.toString().trim()
         val correo = inputCorreo.text.toString().trim()
         val password = inputPassword.text.toString().trim()
+        val aceptaTerminos = checkTerminos.isChecked
 
         // Validar campos vacíos
         if (nombre.isEmpty()) {
@@ -89,6 +140,14 @@ class register : AppCompatActivity() {
         }
         if (password.isEmpty()) {
             mostrarError(inputPassword, "Ingrese su contraseña")
+            return
+        }
+
+        // Validar términos y condiciones
+        if (!aceptaTerminos) {
+            Toast.makeText(this, "Debe aceptar los términos y condiciones para registrarse", Toast.LENGTH_LONG).show()
+            // Opcional: Mostrar los términos automáticamente
+            mostrarTerminos(view)
             return
         }
 
@@ -175,6 +234,7 @@ class register : AppCompatActivity() {
             "password_c" to password,
             "telefono" to telefono
             // Nota: No incluimos "dni" aquí porque ya es el ID del documento
+            // Tampoco incluimos términos y condiciones como campo, solo es validación frontend
         )
 
         // Guardar en Firestore
@@ -243,6 +303,11 @@ class register : AppCompatActivity() {
         }
         inputPassword.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) inputPassword.error = null
+        }
+        // Para el CheckBox
+        checkTerminos.setOnCheckedChangeListener { _, _ ->
+            // Si marca/desmarca, no hacemos nada especial
+            // Podrías agregar alguna lógica aquí si necesitas
         }
     }
 
