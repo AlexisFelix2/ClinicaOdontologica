@@ -15,7 +15,7 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <!-- HEADER (MISMA ALTURA QUE SERVICIOS) -->
+        <!-- HEADER -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
                 android:textColor="#0096FF" />
         </LinearLayout>
 
-        <!-- ESPACIO IGUAL AL DE SERVICIOS -->
+        <!-- SUBTÍTULO -->
         <TextView
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
@@ -50,173 +50,41 @@
             android:textSize="14sp"
             android:textColor="#666666" />
 
-        <!-- ================= CITA 1 ================= -->
-        <com.google.android.material.card.MaterialCardView
+        <!-- CONTENEDOR DINÁMICO PARA CITAS -->
+        <LinearLayout
+            android:id="@+id/contenedorCitas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="12dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="3dp">
+            android:orientation="vertical"
+            android:padding="4dp">
+            <!-- Las tarjetas de citas se agregarán aquí dinámicamente -->
+        </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Limpieza Dental"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="#0096FF" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Confirmada"
-                    android:textColor="#4CAF50"
-                    android:textStyle="bold"
-                    android:layout_marginTop="4dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Dra. Ana Torres"
-                    android:textColor="#666666"
-                    android:layout_marginTop="6dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp">
-
-                    <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:src="@drawable/ic_calendar_check"
-                        app:tint="#666666" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Miércoles, 15 de Octubre"
-                        android:textColor="#666666"
-                        android:layout_marginStart="8dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="4dp">
-
-                    <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:src="@drawable/ic_time"
-                        app:tint="#666666" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="10:00 AM - 10:45 AM"
-                        android:textColor="#666666"
-                        android:layout_marginStart="8dp" />
-                </LinearLayout>
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ver Detalles"
-                    android:layout_marginTop="12dp"
-                    android:backgroundTint="#0096FF"
-                    android:textColor="@android:color/white" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- ================= CITA 2 ================= -->
-        <com.google.android.material.card.MaterialCardView
+        <!-- TEXTO DE CARGA -->
+        <TextView
+            android:id="@+id/txtCargando"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="3dp">
+            android:text="Cargando tus citas..."
+            android:textSize="16sp"
+            android:textColor="#666"
+            android:gravity="center"
+            android:padding="24dp"
+            android:layout_marginTop="20dp"
+            android:visibility="visible" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Consulta de Ortodoncia"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="#0096FF" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Pendiente"
-                    android:textColor="#FF9800"
-                    android:textStyle="bold"
-                    android:layout_marginTop="4dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Dra. Isabel Luna"
-                    android:textColor="#666666"
-                    android:layout_marginTop="6dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp">
-
-                    <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:src="@drawable/ic_calendar_check"
-                        app:tint="#666666" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Martes, 28 de Octubre"
-                        android:textColor="#666666"
-                        android:layout_marginStart="8dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="4dp">
-
-                    <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:src="@drawable/ic_time"
-                        app:tint="#666666" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="04:30 PM - 05:00 PM"
-                        android:textColor="#666666"
-                        android:layout_marginStart="8dp" />
-                </LinearLayout>
-
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+        <!-- TEXTO SI NO HAY CITAS -->
+        <TextView
+            android:id="@+id/txtNoCitas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No tienes citas agendadas"
+            android:textSize="16sp"
+            android:textColor="#999"
+            android:gravity="center"
+            android:padding="24dp"
+            android:layout_marginTop="20dp"
+            android:visibility="gone" />
 
     </LinearLayout>
 </ScrollView>
