@@ -1,13 +1,44 @@
 package com.example.aplicacion_cita_odontologica
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.firestore.FirebaseFirestore
 
 class perfil_doctor : AppCompatActivity() {
+
+    private lateinit var db: FirebaseFirestore
+    private lateinit var prefs: SharedPreferences
+
+    // Vistas de la UI
+    private lateinit var tvNombreCompleto: TextView
+    private lateinit var tvEspecialidad: TextView
+    private lateinit var tvNombreDoctor: TextView
+    private lateinit var tvApellidosDoctor: TextView
+    private lateinit var tvEmailDoctor: TextView
+    private lateinit var tvEspecialidadDoctor: TextView
+    private lateinit var tvBiografiaDoctor: TextView
+
+    // Vistas de Edición
+    private lateinit var etNombreDoctor: EditText
+    private lateinit var etApellidosDoctor: EditText
+    private lateinit var etEspecialidadDoctor: EditText
+    private lateinit var etBiografiaDoctor: EditText
+
+    private lateinit var btnEditarPerfil: Button
+
+    private var isEditMode = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -18,84 +49,144 @@ class perfil_doctor : AppCompatActivity() {
             insets
         }
 
-        // Verificar sesión de doctor
-        verificarSesionDoctor()
+        // Inicializaciones
+        db = FirebaseFirestore.getInstance()
+        prefs = getSharedPreferences("usuario_prefs", MODE_PRIVATE)
 
-        // Actualizar los TextView con datos del doctor logueado
+        verificarSesionDoctor()
+        initViews()
         actualizarDatosDoctor()
     }
 
-    private fun verificarSesionDoctor() {
-        val prefs = getSharedPreferences("usuario_prefs", MODE_PRIVATE)
-        val logueado = prefs.getBoolean("logueado", false)
-        val tipoUsuario = prefs.getString("tipo_usuario", "")
+    private fun initViews() {
+        tvNombreCompleto = findViewById(R.id.tvNombreCompleto)
+        tvEspecialidad = findViewById(R.id.tvEspecialidad)
+        tvNombreDoctor = findViewById(R.id.tvNombreDoctor)
+        tvApellidosDoctor = findViewById(R.id.tvApellidosDoctor)
+        tvEmailDoctor = findViewById(R.id.tvEmailDoctor)
+        tvEspecialidadDoctor = findViewById(R.id.tvEspecialidadDoctor)
+        tvBiografiaDoctor = findViewById(R.id.tvBiografiaDoctor)
 
-        if (!logueado || tipoUsuario != "doctor") {
-            val intent = Intent(this, login::class.java)
-            startActivity(intent)
+        // Asumimos que los EditText existen en el XML con visibility="gone"
+        etNombreDoctor = findViewById(R.id.etNombreDoctor)
+        etApellidosDoctor = findViewById(R.id.etApellidosDoctor)
+        etEspecialidadDoctor = findViewById(R.id.etEspecialidadDoctor)
+        etBiografiaDoctor = findViewById(R.id.etBiografiaDoctor)
+
+        btnEditarPerfil = findViewById(R.id.btnEditarPerfil)
+    }
+
+    private fun verificarSesionDoctor() {
+        if (!prefs.getBoolean("logueado", false) || prefs.getString("tipo_usuario", "") != "doctor") {
+            startActivity(Intent(this, login::class.java))
             finish()
         }
     }
 
     private fun actualizarDatosDoctor() {
-        // Obtener datos del doctor desde SharedPreferences
-        val prefs = getSharedPreferences("usuario_prefs", MODE_PRIVATE)
-
-        val nombre = prefs.getString("nombre", "Doctor") ?: "Doctor"
+        val nombre = prefs.getString("nombre", "") ?: ""
         val apellidos = prefs.getString("apellidos", "") ?: ""
-        val correo = prefs.getString("correo", "doctor@clinica.com") ?: "doctor@clinica.com"
-        val especialidad = prefs.getString("especialidad", "Odontólogo General") ?: "Odontólogo General"
-        val biografia = prefs.getString("biografia", "Biografía no disponible") ?: "Biografía no disponible"
+        val correo = prefs.getString("correo", "") ?: ""
+        val especialidad = prefs.getString("especialidad", "") ?: ""
+        val biografia = prefs.getString("biografia", "") ?: ""
 
-        // 1. Actualizar TextView que dice "Dra. Ana García" (el que está debajo de la foto)
-        // Tu XML tiene este texto en un TextView sin ID, así que vamos a buscarlo
-        val nombreCompletoDoctor = "Dr./Dra. $nombre $apellidos"
-
-        // Reemplazar "Dra. Ana García" por el nombre real
-        reemplazarTextoEnTextView("Dra. Ana García", nombreCompletoDoctor)
-
-        // 2. Actualizar los TextView que SÍ tienen ID en tu XML
-        findViewById<android.widget.TextView>(R.id.tvNombreDoctor).text = nombre
-        findViewById<android.widget.TextView>(R.id.tvApellidosDoctor).text = apellidos
-        findViewById<android.widget.TextView>(R.id.tvEmailDoctor).text = correo
-        findViewById<android.widget.TextView>(R.id.tvEspecialidadDoctor).text = especialidad
-        findViewById<android.widget.TextView>(R.id.tvBiografiaDoctor).text = biografia
-
-        // 3. Actualizar "Número de Colegiado: 12345" (si quieres poner algo personalizado)
-        reemplazarTextoEnTextView("Número de Colegiado: 12345", "Número de Colegiado: ODON-2024")
+        tvNombreCompleto.text = "Dr./Dra. $nombre $apellidos"
+        tvEspecialidad.text = especialidad
+        tvNombreDoctor.text = nombre
+        tvApellidosDoctor.text = apellidos
+        tvEmailDoctor.text = correo
+        tvEspecialidadDoctor.text = especialidad
+        tvBiografiaDoctor.text = biografia
     }
 
-    private fun reemplazarTextoEnTextView(textoBuscar: String, textoNuevo: String) {
-        // Busca en toda la vista un TextView que tenga el texto buscado y lo reemplaza
-        val rootView = findViewById<android.view.View>(android.R.id.content)
-        buscarYReemplazarTextView(rootView, textoBuscar, textoNuevo)
+    fun editarPerfil(view: View) {
+        isEditMode = !isEditMode
+        if (isEditMode) {
+            enterEditMode()
+        } else {
+            saveProfileAndExitEditMode()
+        }
     }
 
-    private fun buscarYReemplazarTextView(view: android.view.View, textoBuscar: String, textoNuevo: String) {
-        if (view is android.widget.TextView && view.text.toString() == textoBuscar) {
-            view.text = textoNuevo
+    private fun enterEditMode() {
+        // Ocultar TextViews y mostrar EditTexts
+        tvNombreDoctor.visibility = View.GONE
+        etNombreDoctor.visibility = View.VISIBLE
+        etNombreDoctor.setText(tvNombreDoctor.text)
+
+        tvApellidosDoctor.visibility = View.GONE
+        etApellidosDoctor.visibility = View.VISIBLE
+        etApellidosDoctor.setText(tvApellidosDoctor.text)
+
+        tvEspecialidadDoctor.visibility = View.GONE
+        etEspecialidadDoctor.visibility = View.VISIBLE
+        etEspecialidadDoctor.setText(tvEspecialidadDoctor.text)
+
+        tvBiografiaDoctor.visibility = View.GONE
+        etBiografiaDoctor.visibility = View.VISIBLE
+        etBiografiaDoctor.setText(tvBiografiaDoctor.text)
+
+        btnEditarPerfil.text = "Guardar"
+    }
+
+    private fun saveProfileAndExitEditMode() {
+        val doctorId = prefs.getString("admin_id", null)
+        if (doctorId == null) {
+            Toast.makeText(this, "Error: ID de sesión no encontrado.", Toast.LENGTH_SHORT).show()
+            exitEditMode() // Salir del modo edición para evitar problemas
             return
         }
 
-        if (view is android.view.ViewGroup) {
-            for (i in 0 until view.childCount) {
-                buscarYReemplazarTextView(view.getChildAt(i), textoBuscar, textoNuevo)
+        val nuevosDatos = mapOf(
+            "nom_ad" to etNombreDoctor.text.toString(),
+            "ape_ad" to etApellidosDoctor.text.toString(),
+            "especialidad" to etEspecialidadDoctor.text.toString(),
+            "biografia" to etBiografiaDoctor.text.toString()
+        )
+
+        db.collection("admin").document(doctorId).update(nuevosDatos)
+            .addOnSuccessListener {
+                // Actualizar SharedPreferences
+                with(prefs.edit()) {
+                    putString("nombre", nuevosDatos["nom_ad"])
+                    putString("apellidos", nuevosDatos["ape_ad"])
+                    putString("especialidad", nuevosDatos["especialidad"])
+                    putString("biografia", nuevosDatos["biografia"])
+                    apply()
+                }
+                Toast.makeText(this, "Perfil actualizado con éxito", Toast.LENGTH_SHORT).show()
+                exitEditMode()
             }
-        }
+            .addOnFailureListener { e ->
+                Log.e("FirestoreUpdate", "Error al actualizar el perfil", e)
+                Toast.makeText(this, "Error al guardar los cambios.", Toast.LENGTH_SHORT).show()
+            }
     }
 
-    // Botón de editar
-    fun editarPerfil(view: android.view.View) {
-        android.widget.Toast.makeText(this, "Funcionalidad de edición en desarrollo", android.widget.Toast.LENGTH_SHORT).show()
+    private fun exitEditMode() {
+        actualizarDatosDoctor() // Refrescar los datos desde SharedPreferences
+
+        // Ocultar EditTexts y mostrar TextViews
+        tvNombreDoctor.visibility = View.VISIBLE
+        etNombreDoctor.visibility = View.GONE
+
+        tvApellidosDoctor.visibility = View.VISIBLE
+        etApellidosDoctor.visibility = View.GONE
+
+        tvEspecialidadDoctor.visibility = View.VISIBLE
+        etEspecialidadDoctor.visibility = View.GONE
+
+        tvBiografiaDoctor.visibility = View.VISIBLE
+        etBiografiaDoctor.visibility = View.GONE
+
+        btnEditarPerfil.text = "Editar Perfil"
     }
 
-    fun irAHorario(view: android.view.View) {
-        val intent = Intent(this, horario_doctor::class.java)
-        startActivity(intent)
+    fun irAHorario(view: View) {
+        startActivity(Intent(this, horario_doctor::class.java))
     }
 
-    // Botón de retroceso
-    fun volver(view: android.view.View) {
+    fun volver(view: View) {
         onBackPressed()
     }
 }
