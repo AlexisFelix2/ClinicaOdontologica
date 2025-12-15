@@ -6,15 +6,19 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
 
 class seleccionar_fecha : AppCompatActivity() {
 
+    private lateinit var db: FirebaseFirestore
     private var fechaSeleccionada = ""
     private var horaSeleccionada = ""
     private val calendar: Calendar = Calendar.getInstance()
@@ -25,10 +29,21 @@ class seleccionar_fecha : AppCompatActivity() {
     private lateinit var txtHorariosTitle: TextView
     private lateinit var btnConfirmar: Button
 
+    // Datos de la cita
+    private lateinit var tipoServicio: String
+    private lateinit var idProfesional: String
+    private lateinit var nombreProfesional: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_seleccionar_fecha)
+
+        // Verificar sesión de cliente
+        verificarSesionCliente()
+
+        // Inicializar Firebase
+        db = FirebaseFirestore.getInstance()
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -36,16 +51,31 @@ class seleccionar_fecha : AppCompatActivity() {
             insets
         }
 
-        val servicio = intent.getStringExtra("servicio") ?: "Servicio"
-        val doctor = intent.getStringExtra("doctor") ?: "Doctor"
+        // Obtener datos pasados
+        tipoServicio = intent.getStringExtra("tipo_servicio") ?: "Servicio"
+        idProfesional = intent.getStringExtra("id_profesional") ?: "EC001"
+        nombreProfesional = intent.getStringExtra("nombre_profesional") ?: "Doctor"
+        val especialidad = intent.getStringExtra("especialidad_profesional") ?: "Odontología General"
 
-        findViewById<TextView>(R.id.txtServicio).text = servicio
-        findViewById<TextView>(R.id.txtDoctor).text = doctor
+        findViewById<TextView>(R.id.txtServicio).text = tipoServicio
+        findViewById<TextView>(R.id.txtDoctor).text = "$nombreProfesional - $especialidad"
 
         initViews()
         setupCalendar()
         setupNavigation()
         setupConfirmButton()
+    }
+
+    private fun verificarSesionCliente() {
+        val prefs = getSharedPreferences("usuario_prefs", MODE_PRIVATE)
+        val logueado = prefs.getBoolean("logueado", false)
+        val tipoUsuario = prefs.getString("tipo_usuario", "")
+
+        if (!logueado || tipoUsuario != "cliente") {
+            val intent = Intent(this, login::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun initViews() {
@@ -57,7 +87,6 @@ class seleccionar_fecha : AppCompatActivity() {
     }
 
     /* ---------------- CALENDARIO ---------------- */
-
     private fun setupCalendar() {
         updateCalendar()
 
@@ -75,7 +104,7 @@ class seleccionar_fecha : AppCompatActivity() {
                 val mes = calendar.get(Calendar.MONTH)
                 val anio = calendar.get(Calendar.YEAR)
 
-                fechaSeleccionada = "$dia-${mes + 1}-$anio"
+                fechaSeleccionada = "$dia/${mes + 1}/$anio"
                 mostrarHorariosDisponibles(dia, mes, anio)
             }
     }
@@ -127,7 +156,6 @@ class seleccionar_fecha : AppCompatActivity() {
     }
 
     /* ---------------- HORARIOS ---------------- */
-
     private fun mostrarHorariosDisponibles(dia: Int, mes: Int, anio: Int) {
         gridHorarios.removeAllViews()
 
@@ -207,21 +235,78 @@ class seleccionar_fecha : AppCompatActivity() {
         btnConfirmar.setTextColor(Color.parseColor("#999999"))
     }
 
+    /* ---------------- GUARDAR EN FIREBASE ---------------- */
     private fun setupConfirmButton() {
         btnConfirmar.setOnClickListener {
             if (fechaSeleccionada.isNotEmpty() && horaSeleccionada.isNotEmpty()) {
-                val intent = Intent(this, confirmacion::class.java)
-                intent.putExtra("servicio", findViewById<TextView>(R.id.txtServicio).text)
-                intent.putExtra("doctor", findViewById<TextView>(R.id.txtDoctor).text)
-                intent.putExtra("fecha", formatearFecha(fechaSeleccionada))
-                intent.putExtra("hora", horaSeleccionada)
-                startActivity(intent)
+                guardarCitaEnFirebase()
             }
         }
     }
 
+    private fun guardarCitaEnFirebase() {
+        // Obtener DNI del cliente logueado
+        val prefs = getSharedPreferences("usuario_prefs", MODE_PRIVATE)
+        val dniCliente = prefs.getString("dni", "") ?: ""
+
+        if (dniCliente.isEmpty()) {
+            Toast.makeText(this, "Error: No se encontró DNI del cliente", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Crear timestamp combinando fecha y hora
+        val partesFecha = fechaSeleccionada.split("/")
+        val dia = partesFecha[0].toInt()
+        val mes = partesFecha[1].toInt() - 1  // Calendar.MONTH empieza en 0
+        val anio = partesFecha[2].toInt()
+
+        val partesHora = horaSeleccionada.split(":")
+        val hora = partesHora[0].toInt()
+        val minuto = partesHora[1].toInt()
+
+        val calendarCita = Calendar.getInstance().apply {
+            set(anio, mes, dia, hora, minuto, 0)
+            set(Calendar.MILLISECOND, 0)
+        }
+
+        val timestamp = Timestamp(calendarCita.time)
+
+        // Generar ID único para la cita
+        val idCita = "AC${System.currentTimeMillis()}"
+
+        // Crear objeto de cita según los campos requeridos
+        val cita = hashMapOf(
+            "dni_cliente" to dniCliente,
+            "tipo_servicio" to tipoServicio,
+            "descripcion" to "Cita agendada por el paciente",
+            "fecha_hora" to timestamp,
+            "profesional" to idProfesional,  // Solo guardar ID del documento (ej: "EC001")
+            "estado" to "pendiente"
+        )
+
+        // Guardar en Firebase
+        db.collection("agendar_cita")
+            .document(idCita)
+            .set(cita)
+            .addOnSuccessListener {
+                // Ir a la pantalla de confirmación
+                val intent = Intent(this, confirmacion::class.java)
+                intent.putExtra("id_cita", idCita)
+                intent.putExtra("tipo_servicio", tipoServicio)
+                // Pasar nombre del profesional solo para mostrar en la UI
+                intent.putExtra("nombre_profesional", nombreProfesional)
+                intent.putExtra("fecha", formatearFecha(fechaSeleccionada))
+                intent.putExtra("hora", horaSeleccionada)
+                intent.putExtra("estado", "pendiente")
+                startActivity(intent)
+            }
+            .addOnFailureListener { error ->
+                Toast.makeText(this, "Error al guardar la cita: ${error.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
     private fun formatearFecha(fecha: String): String {
-        val p = fecha.split("-")
+        val p = fecha.split("/")
         val meses = arrayOf(
             "Enero","Febrero","Marzo","Abril","Mayo","Junio",
             "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"

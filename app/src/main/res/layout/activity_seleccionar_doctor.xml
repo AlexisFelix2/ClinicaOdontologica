@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    android:id="@+id/main"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F9FA">
+    android:background="#F8F9FA"
+    tools:context=".doctores">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,26 +25,65 @@
                 android:layout_width="26dp"
                 android:layout_height="26dp"
                 android:src="@drawable/ic_arrow_back"
-                android:onClick="volverALobby"/>
+                android:onClick="volverALobby" />
 
             <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_marginStart="12dp"
                 android:text="Selecciona un Doctor"
                 android:textSize="22sp"
                 android:textStyle="bold"
-                android:textColor="#0096FF"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textColor="#0096FF" />
         </LinearLayout>
 
-        <!-- DOCTOR 1 -->
+        <!-- CONTENEDOR DINÁMICO PARA DOCTORES -->
+        <LinearLayout
+            android:id="@+id/contenedorDoctores"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="4dp">
+
+            <!-- Las tarjetas de doctores se agregarán aquí dinámicamente desde Firebase -->
+
+        </LinearLayout>
+
+        <!-- TEXTO DE CARGA -->
+        <TextView
+            android:id="@+id/txtCargando"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cargando doctores disponibles..."
+            android:textSize="16sp"
+            android:textColor="#666"
+            android:gravity="center"
+            android:padding="24dp"
+            android:visibility="visible" />
+
+        <!-- TEXTO SI NO HAY DOCTORES -->
+        <TextView
+            android:id="@+id/txtNoDoctores"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No hay doctores disponibles en este momento"
+            android:textSize="16sp"
+            android:textColor="#999"
+            android:gravity="center"
+            android:padding="24dp"
+            android:visibility="gone" />
+
+        <!-- DOCTORES DE EJEMPLO (solo para pruebas/emergencia) -->
+        <!-- Doctor 1 - Mantenido para pruebas -->
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardDoctor1"
+            android:id="@+id/cardDoctorElena"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             app:cardCornerRadius="16dp"
-            app:cardElevation="4dp">
+            app:cardElevation="4dp"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -57,7 +97,7 @@
                     android:layout_height="90dp"
                     android:src="@drawable/ic_profile"
                     android:background="@drawable/circle_white"
-                    android:padding="4dp"/>
+                    android:padding="4dp" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -72,7 +112,7 @@
                         android:text="Dra. Elena Torres"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:textColor="#1A1A1A"/>
+                        android:textColor="#1A1A1A" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -80,7 +120,7 @@
                         android:text="Odontología General"
                         android:textSize="14sp"
                         android:textColor="#666"
-                        android:layout_marginTop="4dp"/>
+                        android:layout_marginTop="4dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -88,18 +128,20 @@
                         android:text="15 años de experiencia"
                         android:textSize="13sp"
                         android:textColor="#666"
-                        android:layout_marginTop="6dp"/>
+                        android:layout_marginTop="6dp" />
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- DOCTOR 2 -->
+        <!-- Doctor 2 - Mantenido para pruebas -->
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardDoctorCarlos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             app:cardCornerRadius="16dp"
-            app:cardElevation="4dp">
+            app:cardElevation="4dp"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -113,7 +155,7 @@
                     android:layout_height="90dp"
                     android:src="@drawable/ic_profile"
                     android:background="@drawable/circle_white"
-                    android:padding="4dp"/>
+                    android:padding="4dp" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -128,7 +170,7 @@
                         android:text="Dr. Carlos Ramírez"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:textColor="#1A1A1A"/>
+                        android:textColor="#1A1A1A" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -136,7 +178,7 @@
                         android:text="Ortodoncia"
                         android:textSize="14sp"
                         android:textColor="#666"
-                        android:layout_marginTop="4dp"/>
+                        android:layout_marginTop="4dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -144,7 +186,7 @@
                         android:text="10 años de experiencia"
                         android:textSize="13sp"
                         android:textColor="#666"
-                        android:layout_marginTop="6dp"/>
+                        android:layout_marginTop="6dp" />
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

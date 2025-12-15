@@ -19,6 +19,9 @@ class servicios : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_servicios)
 
+        // Verificar sesión de cliente
+        verificarSesionCliente()
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -26,6 +29,18 @@ class servicios : AppCompatActivity() {
         }
 
         configurarBuscador()
+    }
+
+    private fun verificarSesionCliente() {
+        val prefs = getSharedPreferences("usuario_prefs", MODE_PRIVATE)
+        val logueado = prefs.getBoolean("logueado", false)
+        val tipoUsuario = prefs.getString("tipo_usuario", "")
+
+        if (!logueado || tipoUsuario != "cliente") {
+            val intent = Intent(this, login::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     // ================= BUSCADOR =================
@@ -70,31 +85,31 @@ class servicios : AppCompatActivity() {
 
     fun seleccionarLimpieza(view: View) {
         startActivity(Intent(this, doctores::class.java)
-            .putExtra("servicio", "Limpieza Dental Profesional"))
+            .putExtra("tipo_servicio", "Limpieza Dental"))
     }
 
     fun seleccionarRevision(view: View) {
-        startActivity(Intent(this, seleccionar_fecha::class.java)
-            .putExtra("servicio", "Revisión General"))
+        startActivity(Intent(this, doctores::class.java)
+            .putExtra("tipo_servicio", "Revisión General"))
     }
 
     fun seleccionarOrtodoncia(view: View) {
-        startActivity(Intent(this, seleccionar_fecha::class.java)
-            .putExtra("servicio", "Ortodoncia"))
+        startActivity(Intent(this, doctores::class.java)
+            .putExtra("tipo_servicio", "Ortodoncia"))
     }
 
     fun seleccionarBlanqueamiento(view: View) {
-        startActivity(Intent(this, seleccionar_fecha::class.java)
-            .putExtra("servicio", "Blanqueamiento Dental"))
+        startActivity(Intent(this, doctores::class.java)
+            .putExtra("tipo_servicio", "Blanqueamiento Dental"))
     }
 
     fun seleccionarImplantes(view: View) {
-        startActivity(Intent(this, seleccionar_fecha::class.java)
-            .putExtra("servicio", "Implantes Dentales"))
+        startActivity(Intent(this, doctores::class.java)
+            .putExtra("tipo_servicio", "Implantes Dentales"))
     }
 
     fun noSeQueNecesito(view: View) {
-        startActivity(Intent(this, seleccionar_fecha::class.java)
-            .putExtra("servicio", "Consulta general"))
+        startActivity(Intent(this, doctores::class.java)
+            .putExtra("tipo_servicio", "Consulta General"))
     }
 }
